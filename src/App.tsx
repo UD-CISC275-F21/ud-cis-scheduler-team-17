@@ -13,6 +13,7 @@ function App(): JSX.Element {
                 </p>
                 <p>Dara McNally</p>
                 <p>Riyara Master</p>
+                <p>Trea Holley</p> 
             </header>
         </div>
     );
