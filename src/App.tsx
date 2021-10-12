@@ -12,6 +12,7 @@ function App(): JSX.Element {
                     Edit <code>src/App.tsx</code> and save to reload.
                 </p>
                 <p>Dara McNally</p>
+                <p>Riyara Master</p>
             </header>
         </div>
     );
