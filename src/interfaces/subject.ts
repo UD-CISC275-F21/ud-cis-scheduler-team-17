@@ -1,4 +1,4 @@
-export interface Table {
+export interface Subject {
     id: string 
     name: string
     credits: number
