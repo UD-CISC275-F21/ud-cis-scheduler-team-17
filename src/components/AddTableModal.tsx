@@ -1,4 +1,4 @@
 import { useState } from "react";
 import { Button, Form, Modal} from "react-bootstrap";
-import { Table } from "../interfaces/table";  
+import { Subject } from "../interfaces/subject";  // I renamed table interface to subject
 

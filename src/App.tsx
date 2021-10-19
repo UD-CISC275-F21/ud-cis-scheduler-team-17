@@ -1,9 +1,19 @@
 import React from "react";
-import logo from "./logo.svg";
+import { useState } from "react";
+//import logo from "./logo.svg";
 import "./App.css";
-//import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { OurTable } from "./components/Table";
+import { Container } from "react-bootstrap";
+/*
+-NEEDS ADD TABLE BUTTON
+-NEEDS TABLE COMPONENT RETURNED
+*/
 
-function App(): JSX.Element {
+/*function App(): JSX.Element {
+
+    
+
     return (
         <div className="App">
             <header className="App-header">
@@ -18,6 +28,16 @@ function App(): JSX.Element {
             </header>
         </div>
     );
-}
+}*/
 
+function App(): JSX.Element {
+
+    
+
+    return (
+        <Container>
+            <OurTable></OurTable>
+        </Container>
+    );
+}
 export default App;
