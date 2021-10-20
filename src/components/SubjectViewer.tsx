@@ -1,7 +1,7 @@
 import React from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row } from "react-bootstrap";
-import { TableFace } from "../interfaces/tableface";
+//import { TableFace } from "../interfaces/tableface";
 
 export function SubjectTable({currentSem}:{
     currentSem: number
@@ -19,11 +19,11 @@ export function SubjectTable({currentSem}:{
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {
-                    return (<tr key={sbj.name}>
+                    return <tr key={sbj.name}>
                         <td>{sbj.id}</td>
                         <td>{sbj.name}</td>
                         <td>{sbj.credits}</td>
-                    </tr>);
+                    </tr>;
                 })}
             </table>
         </Card>

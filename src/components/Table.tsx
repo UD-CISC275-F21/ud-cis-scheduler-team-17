@@ -1,4 +1,4 @@
-import { Row, Card, Button, Container } from "react-bootstrap";
+import { Row, Button } from "react-bootstrap";
 import React from "react";
 import { SubjectTable } from "./SubjectViewer";
 import { TableFace } from "../interfaces/tableface";
@@ -38,9 +38,9 @@ export function OurTable() : JSX.Element {
             <Row>
                 <table>
                     { semesters.map((sem: TableFace) => {
-                        return (<tr key={sem.semester}>
+                        return <tr key={sem.semester}>
                             <td><SubjectTable currentSem={sem.semester}></SubjectTable></td>
-                        </tr>);
+                        </tr>;
                     })}
                 </table>
             </Row>
