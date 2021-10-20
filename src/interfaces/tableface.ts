@@ -1,4 +1,4 @@
-import { SubjectTable } from "../components/SubjectViewer";
+//import { SubjectTable } from "../components/SubjectViewer";
 
 export interface TableFace {
     semester: number
