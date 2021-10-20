@@ -2,7 +2,12 @@ import React from "react";
 import {Subject} from "../interfaces/subject";
 
 export function SubjectTable() : JSX.Element {
-    const subjectList: Subject[] = [{id: "CISC106", name: "General Computer Science for Engineers", credits: 3}];
+    const subjectList: Subject[] = [
+        {id: "CISC106", name: "General Computer Science for Engineers", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3}];
     
     return (
         <table>
