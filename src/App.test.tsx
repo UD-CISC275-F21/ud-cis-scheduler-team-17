@@ -8,13 +8,13 @@ import App from "./App";
     expect(linkElement).toBeInTheDocument();
 });*/
 
-describe('App', () => {
+describe("App", () => {
     beforeEach(() => {
-      render(<App />);
-    })
+        render(<App />);
+    });
 
     it("has the Control Panel when the application loads", () => {
         const element = screen.getByText("Semester 1");
         expect(element).toBeInTheDocument();
-    })
-})
+    });
+});
