@@ -1,5 +1,6 @@
 import { Row, Card } from "react-bootstrap";
 import React from "react";
+import { SubjectTable } from "./SubjectViewer";
 
 
 /*
@@ -12,7 +13,7 @@ It should have the buttons to add courses.
 export function OurTable() : JSX.Element {
     return (
         <Card>
-            <p><strong>SubjectViewer</strong> components needed.</p>
+            <SubjectTable></SubjectTable>
         </Card>
     );
 }
