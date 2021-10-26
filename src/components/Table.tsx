@@ -12,27 +12,53 @@ It should have the buttons to add courses.
 -NEEDS "ADD CLASS" BUTTON
 */
 export function OurTable() : JSX.Element {
+    //const defaultID = 1;
     const [currentSemester, setSemester] = useState<number>(1);
     const [currentYear, setYear] = useState<number>(1);
+    const [currentID, setID] = useState<number>(1);
+    //const [currentki, setki] = useState<number>(1);
+    const semestersPerYear = 2; // In case we want to change the number of semesters per year
     //let newSemester: TableFace = 
     /*const semesters: TableFace[] = [
         {semester: 1}
     ];*/
-    const [semesters, addSem] = useState<TableFace[]>([{semester: currentSemester, year: currentYear}]);
+
+    //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
+    const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
+
     function addSemester() {
-        const tempsem = currentSemester+1;
+        const tempid = currentID+1;
+        let tempsem = tempid%semestersPerYear;
         let tempyear = currentYear;
-        if ((tempsem%2)===1) {
+        if (tempsem===0) {
+            tempsem+=semestersPerYear;
+        }
+        if ((tempid%semestersPerYear)===1) {
             tempyear += 1;
             setYear(tempyear);
         }
 
         setSemester(tempsem);
-        const temp: TableFace = {semester: tempsem, year: tempyear};
+        setID(tempid);
+        const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         //temp.semester = currentSemester;
         const sems: TableFace[] = semesters;
-        semesters.push(temp);
-        addSem(sems);
+        sems.push(temp);
+        setSem(sems);
+    }
+
+    function deleteSemester() {
+        setID(currentID-1);
+        const sems: TableFace[] = semesters; 
+        sems.pop();
+        setSem(sems);
+    }
+    
+    function deleteAllSems() {
+        setSemester(1);
+        setYear(1);
+        setID(1);
+        setSem([{id: 1, semester: 1, year: 1}]);
     }
 
     /*const tempSems: TableFace[] = semesters;
@@ -45,13 +71,16 @@ export function OurTable() : JSX.Element {
             <Row>
                 <table>
                     { semesters.map((sem: TableFace) => {
-                        return <tr key={sem.semester}>
-                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year}></SubjectTable></td>
+                        return <tr key={sem.id}>
+                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id} semList={semesters} setSemList={setSem} thisID={currentID} idSet={setID}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
             </Row>
+            <Button onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
+            <Button onClick={deleteAllSems} className="m-3">Start Over</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
 }
+
