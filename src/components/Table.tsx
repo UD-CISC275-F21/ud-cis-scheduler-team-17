@@ -13,9 +13,9 @@ It should have the buttons to add courses.
 */
 export function OurTable() : JSX.Element {
     //const defaultID = 1;
-    const [currentSemester, setSemester] = useState<number>(1);
-    const [currentYear, setYear] = useState<number>(1);
-    const [currentID, setID] = useState<number>(1);
+    const [currentSemester, setSemester] = useState<number>(0);
+    const [currentYear, setYear] = useState<number>(0);
+    const [currentID, setID] = useState<number>(-1);
     //const [currentki, setki] = useState<number>(1);
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
     //let newSemester: TableFace = 
@@ -24,16 +24,23 @@ export function OurTable() : JSX.Element {
     ];*/
 
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
-    const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
+    const [semesters, setSem] = useState<TableFace[]>([]);
+    //{id: currentID, semester: currentSemester, year: currentYear}
 
     function addSemester() {
         const tempid = currentID+1;
-        let tempsem = tempid%semestersPerYear;
+        let tempsem = (1+tempid)%semestersPerYear;
+        /*if (currentID===0) {
+            tempsem = 2;
+        }*/
         let tempyear = currentYear;
         if (tempsem===0) {
             tempsem+=semestersPerYear;
         }
-        if ((tempid%semestersPerYear)===1) {
+        if ((tempid%semestersPerYear)===0) {
+            /*if (currentID===0) {
+                tempyear -= 1;
+            }*/
             tempyear += 1;
             setYear(tempyear);
         }
@@ -57,8 +64,9 @@ export function OurTable() : JSX.Element {
     function deleteAllSems() {
         setSemester(1);
         setYear(1);
-        setID(1);
-        setSem([{id: 1, semester: 1, year: 1}]);
+        setID(-1);
+        setSem([]);
+        addSemester();
     }
 
     /*const tempSems: TableFace[] = semesters;
@@ -72,7 +80,7 @@ export function OurTable() : JSX.Element {
                 <table>
                     { semesters.map((sem: TableFace) => {
                         return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id} semList={semesters} setSemList={setSem} thisID={currentID} idSet={setID}></SubjectTable></td>
+                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id} semList={semesters} setSemList={setSem} thisID={currentID} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
