@@ -79,7 +79,6 @@ export function OurTable() : JSX.Element {
             </Row>
             <Button onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
             <Button onClick={deleteAllSems} className="m-3">Start Over</Button>
-            
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
