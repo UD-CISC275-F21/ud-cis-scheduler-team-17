@@ -15,6 +15,7 @@ export function OurTable() : JSX.Element {
     const [currentSemester, setSemester] = useState<number>(1);
     const [currentYear, setYear] = useState<number>(1);
     const [currentID, setID] = useState<number>(1);
+    const semestersPerYear = 2; // In case we want to change the number of semesters per year
     //let newSemester: TableFace = 
     /*const semesters: TableFace[] = [
         {semester: 1}
@@ -25,12 +26,12 @@ export function OurTable() : JSX.Element {
 
     function addSemester() {
         const tempid = currentSemester+1;
-        let tempsem = (tempid%2);
+        let tempsem = (tempid%semestersPerYear);
         let tempyear = currentYear;
         if (tempsem===0) {
-            tempsem+=2;
+            tempsem+=semestersPerYear;
         }
-        if ((tempid%2)===1) {
+        if ((tempid%semestersPerYear)===1) {
             tempyear += 1;
             setYear(tempyear);
         }
