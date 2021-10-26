@@ -1,6 +1,6 @@
 import React from "react";
 import {Subject} from "../interfaces/subject";
-import { Card, Row, Button } from "react-bootstrap";
+import { Card, Row, Button, Col } from "react-bootstrap";
 //import { TableFace } from "../interfaces/tableface";
 
 export function SubjectTable({currentSem, currYear}:{
@@ -27,9 +27,11 @@ export function SubjectTable({currentSem, currYear}:{
                     </tr>;
                 })}
             </table>
-            <Button >Add Course</Button>
-            <Button >Delete Course</Button>
-            <Button >Delete Semester</Button>
+            <Row>
+                <Col><Button >Add Course</Button></Col>
+                <Col><Button >Delete Course</Button></Col>
+                <Col><Button >Delete Semester</Button></Col>
+            </Row>
         </Card>
     );
     //Table setup credit to Dr. Bart
