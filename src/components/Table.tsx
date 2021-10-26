@@ -17,15 +17,15 @@ export function OurTable() : JSX.Element {
     const [currentYear, setYear] = useState<number>(0);
     const [currentID, setID] = useState<number>(-1);
     //const [currentki, setki] = useState<number>(1);
-    const semestersPerYear = 2; // In case we want to change the number of semesters per year
+    const semestersPerYear = 4; // In case we want to change the number of semesters per year
     //let newSemester: TableFace = 
     /*const semesters: TableFace[] = [
         {semester: 1}
     ];*/
-
+    //setSemester(currentSemester); // This exists solely to appease the linter.
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
+    //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
     const [semesters, setSem] = useState<TableFace[]>([]);
-    //{id: currentID, semester: currentSemester, year: currentYear}
 
     function addSemester() {
         const tempid = currentID+1;
@@ -33,17 +33,18 @@ export function OurTable() : JSX.Element {
         /*if (currentID===0) {
             tempsem = 2;
         }*/
-        let tempyear = currentYear;
+        //let tempyear = currentYear;
+        const tempyear = Math.trunc(tempid/semestersPerYear)+1;
         if (tempsem===0) {
             tempsem+=semestersPerYear;
         }
-        if ((tempid%semestersPerYear)===0) {
+        /*if ((tempid%semestersPerYear)===0) {
             /*if (currentID===0) {
                 tempyear -= 1;
-            }*/
+            }
             tempyear += 1;
             setYear(tempyear);
-        }
+        }*/
 
         setSemester(tempsem);
         setID(tempid);
@@ -53,17 +54,22 @@ export function OurTable() : JSX.Element {
         sems.push(temp);
         setSem(sems);
     }
-
+    
     function deleteSemester() {
         setID(currentID-1);
         const sems: TableFace[] = semesters; 
         sems.pop();
+        if (!(sems[0])) {
+            setID(-1);
+            setYear(0);
+            setSemester(0);
+        }
         setSem(sems);
     }
     
     function deleteAllSems() {
-        setSemester(1);
-        setYear(1);
+        setSemester(0);
+        setYear(0);
         setID(-1);
         setSem([]);
         addSemester();

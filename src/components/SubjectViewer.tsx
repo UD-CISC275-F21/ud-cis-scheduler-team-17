@@ -27,25 +27,29 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         //const idx = fixedList.indexOf({id: currID, semester: currentSem, year: currYear});
         //const idx = fixedList.indexOf(this);
         fixedList.splice(currID, 1);
-        let temp: TableFace; 
-        for (let i=currID; fixedList[i]; i++) {
-            temp = fixedList[i];
-            temp.id = i;
-            temp.semester -= 1;
-            if (temp.semester==0) {
-                temp.year -= 1;
-                temp.semester = semPer;
+        if (fixedList[0]) {
+            let temp: TableFace; 
+            for (let i=currID; fixedList[i]; i++) {
+                temp = fixedList[i];
+                temp.id = i;
+                temp.semester -= 1;
+                if (temp.semester==0) {
+                    temp.year -= 1;
+                    temp.semester = semPer;
+                }
+                fixedList[i] = temp;
             }
-            fixedList[i] = temp;
+            idSet(thisID-1);
+            setSemList(fixedList);
+        } else {
+            idSet(-1);
         }
-        idSet(thisID-1);
-        setSemList(fixedList);
     }
 
+    //<Row>ID {currID}</Row>
     return (
         <Card>
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
-            <Row>ID {currID}</Row>
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {
