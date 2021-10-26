@@ -17,7 +17,7 @@ export function OurTable() : JSX.Element {
     /*const semesters: TableFace[] = [
         {semester: 1}
     ];*/
-    const [semesters, addSem] = useState<TableFace[]>([{semester: currentSemester}]);
+    const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     function addSemester() {
         const tempsem = currentSemester + 1;
         setSemester(tempsem);
@@ -25,7 +25,12 @@ export function OurTable() : JSX.Element {
         //temp.semester = currentSemester;
         const sems: TableFace[] = semesters;
         semesters.push(temp);
-        addSem(sems);
+        setSem(sems);
+    }
+    function deleteSemester() {
+        const sems: TableFace[] = semesters; 
+        semesters.pop();
+        setSem(sems);
     }
 
     /*const tempSems: TableFace[] = semesters;
@@ -44,7 +49,9 @@ export function OurTable() : JSX.Element {
                     })}
                 </table>
             </Row>
+            <Row><Button onClick={deleteSemester}>Delete Semester</Button></Row>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
 }
+
