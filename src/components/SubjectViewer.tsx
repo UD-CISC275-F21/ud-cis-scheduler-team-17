@@ -3,8 +3,9 @@ import {Subject} from "../interfaces/subject";
 import { Card, Row, Button } from "react-bootstrap";
 //import { TableFace } from "../interfaces/tableface";
 
-export function SubjectTable({currentSem}:{
-    currentSem: number
+export function SubjectTable({currentSem, currYear}:{
+    currentSem: number,
+    currYear: number
 }) : JSX.Element {
     const subjectList: Subject[] = [
         {id: "CISC106", name: "General Computer Science for Engineers", credits: 3},
@@ -15,7 +16,7 @@ export function SubjectTable({currentSem}:{
     
     return (
         <Card>
-            <Row><strong>Semester {currentSem}</strong></Row>
+            <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {

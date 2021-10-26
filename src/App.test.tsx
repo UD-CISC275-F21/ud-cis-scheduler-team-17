@@ -14,7 +14,7 @@ describe("App", () => {
     });
 
     it("has the Control Panel when the application loads", () => {
-        const element = screen.getByText("Semester 1");
+        const element = screen.getByText("Semester 1 Year 1");
         expect(element).toBeInTheDocument();
     });
 });
