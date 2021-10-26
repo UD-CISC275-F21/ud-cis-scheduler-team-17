@@ -12,6 +12,7 @@ It should have the buttons to add courses.
 -NEEDS "ADD CLASS" BUTTON
 */
 export function OurTable() : JSX.Element {
+    //const defaultID = 1;
     const [currentSemester, setSemester] = useState<number>(1);
     const [currentYear, setYear] = useState<number>(1);
     const [currentID, setID] = useState<number>(1);
@@ -22,10 +23,10 @@ export function OurTable() : JSX.Element {
     ];*/
 
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
-    const [semesters, setSem] = useState<TableFace[]>([{id: currentSemester, semester: currentSemester%2, year: currentYear}]);
+    const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
 
     function addSemester() {
-        const tempid = currentSemester+1;
+        const tempid = currentID+1;
         let tempsem = (tempid%semestersPerYear);
         let tempyear = currentYear;
         if (tempsem===0) {
@@ -37,15 +38,18 @@ export function OurTable() : JSX.Element {
         }
 
         setSemester(tempsem);
+        setID(tempid);
         const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         //temp.semester = currentSemester;
         const sems: TableFace[] = semesters;
-        semesters.push(temp);
+        sems.push(temp);
         setSem(sems);
     }
+
     function deleteSemester() {
+        setID(currentID+1);
         const sems: TableFace[] = semesters; 
-        semesters.pop();
+        sems.pop();
         setSem(sems);
     }
 
@@ -60,12 +64,12 @@ export function OurTable() : JSX.Element {
                 <table>
                     { semesters.map((sem: TableFace) => {
                         return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id}></SubjectTable></td>
+                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id} semList={semesters} setSemList={setSem} thisID={currentID} idSet={setID}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
             </Row>
-            <Row><Button onClick={deleteSemester}>Delete Semester</Button></Row>
+            <Row><Button onClick={deleteSemester}>Delete Last Semester</Button></Row>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
