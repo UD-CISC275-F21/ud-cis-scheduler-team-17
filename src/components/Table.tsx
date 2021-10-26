@@ -14,24 +14,29 @@ It should have the buttons to add courses.
 export function OurTable() : JSX.Element {
     const [currentSemester, setSemester] = useState<number>(1);
     const [currentYear, setYear] = useState<number>(1);
+    const [currentID, setID] = useState<number>(1);
     //let newSemester: TableFace = 
     /*const semesters: TableFace[] = [
         {semester: 1}
     ];*/
 
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
-    const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester, year: currentYear}]);
+    const [semesters, setSem] = useState<TableFace[]>([{id: currentSemester, semester: currentSemester%2, year: currentYear}]);
 
     function addSemester() {
-        const tempsem = currentSemester+1;
+        const tempid = currentSemester+1;
+        let tempsem = (tempid%2);
         let tempyear = currentYear;
-        if ((tempsem%2)===1) {
+        if (tempsem===0) {
+            tempsem+=2;
+        }
+        if ((tempid%2)===1) {
             tempyear += 1;
             setYear(tempyear);
         }
 
         setSemester(tempsem);
-        const temp: TableFace = {semester: tempsem, year: tempyear};
+        const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         //temp.semester = currentSemester;
         const sems: TableFace[] = semesters;
         semesters.push(temp);
@@ -53,8 +58,8 @@ export function OurTable() : JSX.Element {
             <Row>
                 <table>
                     { semesters.map((sem: TableFace) => {
-                        return <tr key={sem.semester}>
-                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year}></SubjectTable></td>
+                        return <tr key={sem.id}>
+                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
