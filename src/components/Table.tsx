@@ -27,7 +27,7 @@ export function OurTable() : JSX.Element {
 
     function addSemester() {
         const tempid = currentID+1;
-        let tempsem = (tempid%semestersPerYear);
+        let tempsem = tempid%semestersPerYear;
         let tempyear = currentYear;
         if (tempsem===0) {
             tempsem+=semestersPerYear;
