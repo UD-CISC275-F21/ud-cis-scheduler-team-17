@@ -16,6 +16,7 @@ export function OurTable() : JSX.Element {
     const [currentSemester, setSemester] = useState<number>(1);
     const [currentYear, setYear] = useState<number>(1);
     const [currentID, setID] = useState<number>(1);
+    //const [currentki, setki] = useState<number>(1);
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
     //let newSemester: TableFace = 
     /*const semesters: TableFace[] = [
@@ -47,10 +48,17 @@ export function OurTable() : JSX.Element {
     }
 
     function deleteSemester() {
-        setID(currentID+1);
+        setID(currentID-1);
         const sems: TableFace[] = semesters; 
         sems.pop();
         setSem(sems);
+    }
+    
+    function deleteAllSems() {
+        setSemester(1);
+        setYear(1);
+        setID(1);
+        setSem([{id: 1, semester: 1, year: 1}]);
     }
 
     /*const tempSems: TableFace[] = semesters;
@@ -69,7 +77,9 @@ export function OurTable() : JSX.Element {
                     })}
                 </table>
             </Row>
-            <Row><Button onClick={deleteSemester}>Delete Last Semester</Button></Row>
+            <Button onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
+            <Button onClick={deleteAllSems} className="m-3">Start Over</Button>
+            
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
