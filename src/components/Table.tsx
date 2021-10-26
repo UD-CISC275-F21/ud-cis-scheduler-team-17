@@ -13,11 +13,11 @@ It should have the buttons to add courses.
 */
 export function OurTable() : JSX.Element {
     //const defaultID = 1;
-    const [currentSemester, setSemester] = useState<number>(0);
-    const [currentYear, setYear] = useState<number>(0);
-    const [currentID, setID] = useState<number>(-1);
+    //const [currentSemester, setSemester] = useState<number>(0);
+    //const [currentYear, setYear] = useState<number>(0);
+    const [currentID, setID] = useState<number>(0);
     //const [currentki, setki] = useState<number>(1);
-    const semestersPerYear = 4; // In case we want to change the number of semesters per year
+    const semestersPerYear = 2; // In case we want to change the number of semesters per year
     //let newSemester: TableFace = 
     /*const semesters: TableFace[] = [
         {semester: 1}
@@ -25,7 +25,7 @@ export function OurTable() : JSX.Element {
     //setSemester(currentSemester); // This exists solely to appease the linter.
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
-    const [semesters, setSem] = useState<TableFace[]>([]);
+    const [semesters, setSem] = useState<TableFace[]>([{id:currentID, semester: 1, year: 1}]);
 
     function addSemester() {
         const tempid = currentID+1;
@@ -46,7 +46,7 @@ export function OurTable() : JSX.Element {
             setYear(tempyear);
         }*/
 
-        setSemester(tempsem);
+        //setSemester(tempsem);
         setID(tempid);
         const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         //temp.semester = currentSemester;
@@ -59,20 +59,20 @@ export function OurTable() : JSX.Element {
         setID(currentID-1);
         const sems: TableFace[] = semesters; 
         sems.pop();
-        if (!(sems[0])) {
+        if (!sems[0]) {
             setID(-1);
-            setYear(0);
-            setSemester(0);
+            //setYear(0);
+            //setSemester(0);
         }
         setSem(sems);
     }
     
     function deleteAllSems() {
-        setSemester(0);
-        setYear(0);
-        setID(-1);
-        setSem([]);
-        addSemester();
+        //setSemester(0);
+        //setYear(0);
+        setID(0);
+        setSem([{id:0, semester: 1, year: 1}]);
+        //addSemester();
     }
 
     /*const tempSems: TableFace[] = semesters;
