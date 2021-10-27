@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import { TableFace } from "../interfaces/tableface";
@@ -13,12 +13,10 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     idSet: (num: number) => void,
     semPer: number
 }) : JSX.Element {
-    const subjectList: Subject[] = [
-        {id: "CISC106", name: "General Computer Science for Engineers", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3}];
+
+    const [newSubject, setNewSubject] = useState<Subject>({id: "CISC", name: "ClassName", credits: 3});
+
+    const subjectList: Subject[] = [newSubject, newSubject, newSubject, newSubject, newSubject];
 
     
     function deleteSem () {
@@ -54,9 +52,17 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {
                     return <tr key={sbj.name}>
-                        <td>{sbj.id}</td>
-                        <td>{sbj.name}</td>
-                        <td>{sbj.credits}</td>
+                        <td><form>
+                            <input type="text" value={sbj.id}/><input type="submit" value ="Submit ID"></input>
+                        </form></td>
+                        
+                        <td><form>
+                            <input type="text" value={sbj.name}/><input type="submit" value ="Submit Class Name"></input>
+                        </form></td>
+
+                        <td><form>
+                            <input type="text" value={sbj.credits}/><input type="submit" value ="Submit Credits"></input>
+                        </form></td>
                     </tr>;
                 })}
             </table>
