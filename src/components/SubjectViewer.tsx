@@ -2,6 +2,7 @@ import React from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import { TableFace } from "../interfaces/tableface";
+//import { fixYear } from "../functions/fixYear";
 
 export function SubjectTable({currID, currentSem, currYear, semList, setSemList, thisID, idSet, semPer}:{
     currID: number,

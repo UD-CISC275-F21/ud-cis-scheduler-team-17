@@ -18,7 +18,7 @@ export function OurTable() : JSX.Element {
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
     const [semesters, setSem] = useState<TableFace[]>([{id:currentID, semester: 1, year: 1}]);
     //const initYear: Year = {thisYear: semesters};
-    const [yearList, setYearList] = useState<Year[]>([{thisYear: semesters}]);
+    const [yearList, setYearList] = useState<Year[]>([{yearNum: 1, thisYear: semesters}]);
 
     /*function fixYear() {
         let tempList: Year[] = yearList;
@@ -50,9 +50,10 @@ export function OurTable() : JSX.Element {
         const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         const sems: TableFace[] = semesters;
         sems.push(temp);
-        const tempY: Year[] = fixYear(sems);
+        /*const tempY: Year[] = fixYear(sems);
         setSem(sems);
-        setYearList(tempY);
+        setYearList(tempY);*/
+        updateSY(sems);
     }
     
     function deleteSemester() {
@@ -62,12 +63,19 @@ export function OurTable() : JSX.Element {
         if (!sems[0]) {
             setID(-1);
         }
-        setSem(sems);
+        //setSem(sems);
+        updateSY(sems);
     }
     
     function deleteAllSems() {
         setID(0);
-        setSem([{id:0, semester: 1, year: 1}]);
+        //setSem([{id:0, semester: 1, year: 1}]);
+        updateSY([{id:0, semester: 1, year: 1}]);
+    }
+
+    function updateSY(lists: TableFace[]) {
+        setSem(lists);
+        setYearList(fixYear(lists));
     }
 
     return (
@@ -75,9 +83,9 @@ export function OurTable() : JSX.Element {
             <Row><Button onClick={addSemester} className="m-3">Add Semester</Button></Row>
             <Row>
                 <table>
-                    { semesters.map((sem: TableFace) => {
-                        return <tr key={sem.year}>
-                            <td><YearViewer semesterList={semesters} setSemesterFunc={setSem} lastID={currentID} changeID={setID} perYear={semestersPerYear}></YearViewer></td>
+                    { yearList.map((yr: Year) => {
+                        return <tr key={yr.yearNum}>
+                            <td><YearViewer semesterList={semesters} setSemesterFunc={updateSY} lastID={currentID} changeID={setID} perYear={semestersPerYear} thisYearSems={yr.thisYear}></YearViewer></td>
                         </tr>;
                     })}
                 </table>
