@@ -1,5 +1,5 @@
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 //import { useState } from "react";
 import { TableFace } from "../interfaces/tableface";
 import { SubjectTable } from "./SubjectViewer";
@@ -7,13 +7,12 @@ import { Year } from "../interfaces/year";
 //import { Button, Form, Modal} from "react-bootstrap";
 //import { Subject } from "../interfaces/subject";  // I renamed table interface to subject
 
-export function YearViewer({semesterList, setSemesterFunc, lastID, changeID, perYear, thisYearSems}: {
+export function YearViewer({semesterList, setSemesterFunc, lastID, changeID, perYear}: {
     semesterList: TableFace[]
     setSemesterFunc: (semList: TableFace[]) => void,
     lastID: number,
     changeID: (num: number) => void,
-    perYear: number,
-    thisYearSems: Year[]
+    perYear: number
 }) : JSX.Element {
     /*const [currentID, setID] = useState<number>(0);
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
@@ -35,17 +34,15 @@ export function YearViewer({semesterList, setSemesterFunc, lastID, changeID, per
         tempy.thisYear[j] = temps;
     }
     setListYear(tempList);*/
-    if (perYear===1) {
-        return (
-            <Row>
-                <table>
-                    { thisYearSems.map((yr: year) => {
-                        return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id} semList={semesterList} setSemList={setSemesterFunc} thisID={lastID} idSet={changeID} semPer={perYear}></SubjectTable></td>
-                        </tr>;
-                    })}
-                </table>
-            </Row>
-        );
-    }
+    return (
+        <Col>
+            <table>
+                { semesterList.map((sem: TableFace) => {
+                    return <tr key={sem.id}>
+                        <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id} semList={semesterList} setSemList={setSemesterFunc} thisID={lastID} idSet={changeID} semPer={perYear}></SubjectTable></td>
+                    </tr>;
+                })}
+            </table>
+        </Col>
+    );
 }

@@ -85,7 +85,7 @@ export function OurTable() : JSX.Element {
                 <table>
                     { yearList.map((yr: Year) => {
                         return <tr key={yr.yearNum}>
-                            <td><YearViewer semesterList={semesters} setSemesterFunc={updateSY} lastID={currentID} changeID={setID} perYear={semestersPerYear} thisYearSems={yr.thisYear}></YearViewer></td>
+                            <td><YearViewer semesterList={semesters} setSemesterFunc={updateSY} lastID={currentID} changeID={setID} perYear={semestersPerYear}></YearViewer></td>
                         </tr>;
                     })}
                 </table>
