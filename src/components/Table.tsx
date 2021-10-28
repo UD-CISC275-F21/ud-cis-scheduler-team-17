@@ -4,6 +4,8 @@ import React from "react";
 import { TableFace } from "../interfaces/tableface";
 import { useState } from "react";
 import { YearViewer } from "./YearViewer";
+import { Year } from "../interfaces/year";
+import { fixYear } from "../functions/fixYear";
 
 /*
 I think for this it should return a card and several subject components (which will need to be made for ease of adding classes).
@@ -15,7 +17,28 @@ export function OurTable() : JSX.Element {
     const [currentID, setID] = useState<number>(0);
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
     const [semesters, setSem] = useState<TableFace[]>([{id:currentID, semester: 1, year: 1}]);
+    //const initYear: Year = {thisYear: semesters};
+    const [yearList, setYearList] = useState<Year[]>([{thisYear: semesters}]);
 
+    /*function fixYear() {
+        let tempList: Year[] = yearList;
+        let tempy: Year;
+        tempy = tempList[0];
+        let temps: TableFace;
+        for (let i=0, j=0, t=1; semesters[i]; i++) {
+            temps = semesters[i];
+            //tempy = yearList[t];
+            if (temps.year!=t) {
+                tempList.push(tempy);
+                t += 1;
+                j = 0;
+                tempy.thisYear = [];
+            }
+            tempy.thisYear[j] = temps;
+        }
+        setYearList(tempList);
+    }*/
+    
     function addSemester() {
         const tempid = currentID+1;
         let tempsem = (1+tempid)%semestersPerYear;
@@ -27,7 +50,9 @@ export function OurTable() : JSX.Element {
         const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         const sems: TableFace[] = semesters;
         sems.push(temp);
+        const tempY: Year[] = fixYear(sems);
         setSem(sems);
+        setYearList(tempY);
     }
     
     function deleteSemester() {

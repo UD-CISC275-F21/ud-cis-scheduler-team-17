@@ -18,8 +18,8 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         {id: "CISC", name: "ClassName", credits: 3},
         {id: "CISC", name: "ClassName", credits: 3},
         {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3}];
-
+        {id: "CISC", name: "ClassName", credits: 3}
+    ];
     
     function deleteSem () {
         //idSet(thisID+1);
