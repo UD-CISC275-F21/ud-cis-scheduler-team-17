@@ -14,9 +14,14 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     semPer: number
 }) : JSX.Element {
 
-    const [newSubject, setNewSubject] = useState<Subject>({id: "CISC", name: "ClassName", credits: 3});
+    //const [newSubject, setNewSubject] = useState<Subject>({id: "CISC", name: "ClassName", credits: 3});
+    // Need to make this be updated by submitting the text boxes
 
-    const subjectList: Subject[] = [newSubject, newSubject, newSubject, newSubject, newSubject];
+    const subjectList: Subject[] = [{id: "CISC", name: "ClassName", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3},
+        {id: "CISC", name: "ClassName", credits: 3}];
 
     
     function deleteSem () {
@@ -53,15 +58,15 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 { subjectList.map((sbj: Subject) => {
                     return <tr key={sbj.name}>
                         <td><form>
-                            <input type="text" value={sbj.id}/><input type="submit" value ="Submit ID"></input>
+                            <input name = "id" type="text" value={sbj.id}/><input type="submit" value ="Submit ID"></input>
                         </form></td>
                         
                         <td><form>
-                            <input type="text" value={sbj.name}/><input type="submit" value ="Submit Class Name"></input>
+                            <input name = "name" type="text" value={sbj.name}/><input type="submit" value ="Submit Class Name"></input>
                         </form></td>
 
                         <td><form>
-                            <input type="text" value={sbj.credits}/><input type="submit" value ="Submit Credits"></input>
+                            <input name = "credits" type="text" value={sbj.credits}/><input type="submit" value ="Submit Credits"></input>
                         </form></td>
                     </tr>;
                 })}
