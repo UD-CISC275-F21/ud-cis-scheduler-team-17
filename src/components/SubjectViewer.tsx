@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import { TableFace } from "../interfaces/tableface";
@@ -13,12 +13,12 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     idSet: (num: number) => void,
     semPer: number
 }) : JSX.Element {
-    const subjectList: Subject[] = [
+    const [subjectList, setSubjectList] = useState<Subject[]>([
         {id: "CISC106", name: "General Computer Science for Engineers", credits: 3},
         {id: "CISC", name: "ClassName", credits: 3},
         {id: "CISC", name: "ClassName", credits: 3},
         {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3}];
+        {id: "CISC", name: "ClassName", credits: 3}]);
 
     
     function deleteSem () {
@@ -48,6 +48,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
 
     function editSem () {
         alert("editSem has been used!");
+
     }
 
     //<Row>ID {currID}</Row>
