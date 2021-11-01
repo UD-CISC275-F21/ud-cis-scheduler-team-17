@@ -20,6 +20,9 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         {id: "CISC", name: "ClassName", credits: 3},
         {id: "CISC", name: "ClassName", credits: 3}]);
 
+    const [editRow, setEditRow] = useState<number>(0);
+    const [currentRow, setCurrentRow] = useState<number>(0);
+
     
     function deleteSem () {
         //idSet(thisID+1);
@@ -48,7 +51,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
 
     function editSem () {
         alert("editSem has been used!");
-
+        
     }
 
     //<Row>ID {currID}</Row>
@@ -57,14 +60,23 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
+                {setCurrentRow(0)}
                 { subjectList.map((sbj: Subject) => {
-                    return <tr key={sbj.name}>
-                        <td>{sbj.id}</td>
-                        <td>{sbj.name}</td>
-                        <td>{sbj.credits}</td>
-                        <td><Button onClick={editSem}>Edit</Button></td>
-                    </tr>;
-                })}
+                    
+                    {setCurrentRow(currentRow + 1)}
+                    return (
+                        {(editRow == currentRow) ? (
+                            alert("Detected edit")
+                         ):(
+                            <tr key={sbj.name}>
+                                <td>{sbj.id}</td>
+                                <td>{sbj.name}</td>
+                                <td>{sbj.credits}</td>
+                                <td><Button onClick={editSem}>Edit</Button></td>
+                            </tr>
+                        )}
+                    )
+                }
             </table>
             <Row>
                 <Col><Button >Add Course</Button></Col>
