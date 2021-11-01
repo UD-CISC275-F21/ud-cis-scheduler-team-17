@@ -46,6 +46,10 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         }
     }
 
+    function editSem () {
+        alert("editSem has been used!");
+    }
+
     //<Row>ID {currID}</Row>
     return (
         <Card>
@@ -57,6 +61,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                         <td>{sbj.id}</td>
                         <td>{sbj.name}</td>
                         <td>{sbj.credits}</td>
+                        <td><Button onClick={editSem}>Edit</Button></td>
                     </tr>;
                 })}
             </table>
