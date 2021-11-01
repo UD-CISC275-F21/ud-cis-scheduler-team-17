@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import { TableFace } from "../interfaces/tableface";
@@ -13,14 +14,26 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     idSet: (num: number) => void,
     semPer: number
 }) : JSX.Element {
-    const subjectList: Subject[] = [
-        {id: "CISC106", name: "General Computer Science for Engineers", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3}];
+    const [currentId, setId] = useState<string>("CISC");
+    const [courseName, setcourseName]  = useState<string>("ClassName");
+    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3}]);
 
-    
+    function addCourse () {
+        const tempId = currentId;
+        setId(tempId);
+        const temp: Subject = {id: tempId, name: courseName, credits: 3};
+        const sub: Subject[] = subjectList;
+        sub.push(temp);
+        setSub(sub);
+    }
+
+    function deleteCourse () {
+        setId(currentId);
+        const sub: Subject[] = subjectList;
+        sub.pop();
+        setSub(sub);
+    }
+
     function deleteSem () {
         //idSet(thisID+1);
         const fixedList: TableFace[] = semList;
@@ -53,7 +66,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {
-                    return <tr key={sbj.name}>
+                    return <tr key={sbj.id}>
                         <td>{sbj.id}</td>
                         <td>{sbj.name}</td>
                         <td>{sbj.credits}</td>
@@ -61,8 +74,8 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 })}
             </table>
             <Row>
-                <Col><Button >Add Course</Button></Col>
-                <Col><Button >Delete Course</Button></Col>
+                <Col><Button onClick={addCourse}>Add Course</Button></Col>
+                <Col><Button onClick = {deleteCourse}>Delete Course</Button></Col>
                 <Col><Button onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
         </Card>
