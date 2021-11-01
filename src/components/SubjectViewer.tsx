@@ -63,12 +63,12 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 {setCurrentRow(0)}
                 { subjectList.map((sbj: Subject) => {
                     
-                    {setCurrentRow(currentRow + 1)}
+                    {setCurrentRow(currentRow + 1)} // Track what row it is on
                     return (
-                        {(editRow == currentRow) ? (
-                            alert("Detected edit")
+                        {(editRow == currentRow) ? ( // If it the current row was set to be edited, do this
+                            alert("Detected edit") // Placeholder
                          ):(
-                            <tr key={sbj.name}>
+                            <tr key={sbj.name}> // otherwise do what it originally does
                                 <td>{sbj.id}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
