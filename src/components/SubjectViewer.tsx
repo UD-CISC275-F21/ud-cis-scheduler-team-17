@@ -72,7 +72,15 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                     return (
                         (editRow == newRow) ? ( // If it the current row was set to be edited, do this
                             <tr key={sbj.name}> 
-                                <td>{sbj.id}</td>
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td>
+                                    <input></input>
+                                </td>
                                 <td><Button onClick={submitSem}>Submit</Button></td>
                             </tr>
                         ):( // otherwise do what it originally does
