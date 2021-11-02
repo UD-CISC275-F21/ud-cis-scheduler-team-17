@@ -18,7 +18,7 @@ export function OurTable() : JSX.Element {
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
     const [semesters, setSem] = useState<TableFace[]>([{id:currentID, semester: 1, year: 1}]);
     //const initYear: Year = {thisYear: semesters};
-    const [yearList, setYearList] = useState<Year[]>([{yearNum: 1, thisYear: semesters}]);
+    const [yearList, setYearList] = useState<Year[]>([{yearNum: 1, thisYear: [semesters[0]]}]);
 
     /*function fixYear() {
         let tempList: Year[] = yearList;
@@ -48,8 +48,8 @@ export function OurTable() : JSX.Element {
         }
         setID(tempid);
         const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
-        const sems: TableFace[] = semesters;
-        sems.push(temp);
+        const sems: TableFace[] = [...semesters, temp];
+        //sems.push(temp);
         /*const tempY: Year[] = fixYear(sems);
         setSem(sems);
         setYearList(tempY);*/

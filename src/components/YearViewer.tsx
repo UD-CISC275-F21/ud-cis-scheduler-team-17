@@ -1,5 +1,6 @@
 import React from "react";
-import { Col } from "react-bootstrap";
+//import { Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 //import { useState } from "react";
 import { TableFace } from "../interfaces/tableface";
 import { SubjectTable } from "./SubjectViewer";
@@ -34,8 +35,17 @@ export function YearViewer({semesterList, setSemesterFunc, lastID, changeID, per
         tempy.thisYear[j] = temps;
     }
     setListYear(tempList);*/
+    /*if (perYear===2) {
+        
+    } else if (perYear===3) {
+
+    } else if (perYear===4) {
+
+    } else {
+        
+    }*/
     return (
-        <Col>
+        <Row>
             <table>
                 { semesterList.map((sem: TableFace) => {
                     return <tr key={sem.id}>
@@ -43,6 +53,6 @@ export function YearViewer({semesterList, setSemesterFunc, lastID, changeID, per
                     </tr>;
                 })}
             </table>
-        </Col>
+        </Row>
     );
 }

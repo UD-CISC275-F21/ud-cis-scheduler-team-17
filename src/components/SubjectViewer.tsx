@@ -51,6 +51,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     return (
         <Card>
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
+            <Row>{currID}</Row>
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {
