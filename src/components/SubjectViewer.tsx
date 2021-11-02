@@ -14,11 +14,11 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     semPer: number
 }) : JSX.Element {
     const [subjectList, setSubjectList] = useState<Subject[]>([
-        {id: "CISC106", name: "General Computer Science for Engineers", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3}]);
+        {id: "CISC106", name: "General Computer Science for Engineers", credits: 3, key: 1},
+        {id: "CISC", name: "ClassName", credits: 3, key: 2},
+        {id: "CISC", name: "ClassName", credits: 3, key: 3},
+        {id: "CISC", name: "ClassName", credits: 3, key: 4},
+        {id: "CISC", name: "ClassName", credits: 3, key: 5}]);
 
     const [editRow, setEditRow] = useState<number>(0);
 
@@ -69,8 +69,8 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 { subjectList.map((sbj: Subject) => {
                     {newRow++;} // Track what row it is on
                     return (
-                        (editRow == newRow) ? ( // If it the current row was set to be edited, do this
-                            <tr key={sbj.name}> 
+                        (editRow == newRow) ? ( // If the current row was set to be edited, do this
+                            <tr key={sbj.id}> 
                                 <td>
                                     <input></input>
                                 </td>
@@ -83,11 +83,11 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                 <td><Button onClick={submitSem}>Submit</Button></td>
                             </tr>
                         ):( // otherwise do what it originally does
-                            <tr key={sbj.name}> 
+                            <tr key={sbj.id}> 
                                 <td>{sbj.id}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
-                                <td><Button onClick={() => editSem(newRow)}>Edit</Button></td>
+                                <td><Button onClick={() => editSem(sbj.key)}>Edit</Button></td>
                             </tr>
                         )
                     );
