@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import { TableFace } from "../interfaces/tableface";
@@ -13,14 +14,31 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     idSet: (num: number) => void,
     semPer: number
 }) : JSX.Element {
-    const subjectList: Subject[] = [
-        {id: "CISC106", name: "General Computer Science for Engineers", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3},
-        {id: "CISC", name: "ClassName", credits: 3}];
+    const [currentId, setId] = useState<string>("CISC");
+    const [courseName, setcourseName]  = useState<string>("ClassName");
+    const [currentKey, setKey] = useState<number>(0);
+    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey}]);
 
-    
+    const [editRow, setEditRow] = useState<number>(0);
+
+    function addCourse () {
+        const tempKey = currentKey + 1;
+        setKey(tempKey);
+        setId(currentId);
+        setcourseName(courseName);
+        const temp: Subject = {id: currentId, name: courseName, credits: 3, key: tempKey};
+        const sub: Subject[] = subjectList;
+        sub.push(temp);
+        setSub(sub);
+    }
+
+    function deleteCourse () {
+        setKey(currentKey - 1);
+        const sub: Subject[] = subjectList;
+        sub.pop();
+        setSub(sub);
+    }
+
     function deleteSem () {
         //idSet(thisID+1);
         const fixedList: TableFace[] = semList;
@@ -46,6 +64,17 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         }
     }
 
+    function editSem (currSem: number) {
+        setEditRow(currSem);
+        alert("editSem has been used!");
+    }
+
+    function submitSem () {
+        alert("Submitted!");
+        setEditRow(0);
+    }
+
+    let newRow = 0;
     //<Row>ID {currID}</Row>
     return (
         <Card>
@@ -53,16 +82,35 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {
-                    return <tr key={sbj.name}>
-                        <td>{sbj.id}</td>
-                        <td>{sbj.name}</td>
-                        <td>{sbj.credits}</td>
-                    </tr>;
+                    {newRow++;} // Track what row it is on
+                    return (
+                        editRow == newRow ?  // If the current row was set to be edited, do this
+                            <tr key={sbj.id}> 
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td><Button onClick={submitSem}>Submit</Button></td>
+                            </tr>
+                            : // otherwise do what it originally does
+                            <tr key={sbj.id}> 
+                                <td>{sbj.id}</td>
+                                <td>{sbj.name}</td>
+                                <td>{sbj.credits}</td>
+                                <td><Button onClick={() => editSem(sbj.key)}>Edit</Button></td>
+                            </tr>
+                        
+                    );
                 })}
             </table>
             <Row>
-                <Col><Button >Add Course</Button></Col>
-                <Col><Button >Delete Course</Button></Col>
+                <Col><Button onClick={addCourse}>Add Course</Button></Col>
+                <Col><Button onClick = {deleteCourse}>Delete Course</Button></Col>
                 <Col><Button onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
         </Card>
