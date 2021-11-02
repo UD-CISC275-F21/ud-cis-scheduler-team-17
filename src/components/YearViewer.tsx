@@ -3,7 +3,7 @@ import { Col } from "react-bootstrap";
 //import { useState } from "react";
 import { TableFace } from "../interfaces/tableface";
 import { SubjectTable } from "./SubjectViewer";
-import { Year } from "../interfaces/year";
+//import { Year } from "../interfaces/year";
 //import { Button, Form, Modal} from "react-bootstrap";
 //import { Subject } from "../interfaces/subject";  // I renamed table interface to subject
 
