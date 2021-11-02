@@ -16,19 +16,24 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
-    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3}]);
+    const [currentKey, setKey] = useState<number>(0);
+    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey}]);
+
+    const [editRow, setEditRow] = useState<number>(0);
 
     function addCourse () {
-        const tempId = currentId;
-        setId(tempId);
-        const temp: Subject = {id: tempId, name: courseName, credits: 3};
+        const tempKey = currentKey + 1;
+        setKey(tempKey);
+        setId(currentId);
+        setcourseName(courseName);
+        const temp: Subject = {id: currentId, name: courseName, credits: 3, key: tempKey};
         const sub: Subject[] = subjectList;
         sub.push(temp);
         setSub(sub);
     }
 
     function deleteCourse () {
-        setId(currentId);
+        setKey(currentKey - 1);
         const sub: Subject[] = subjectList;
         sub.pop();
         setSub(sub);
@@ -59,6 +64,17 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         }
     }
 
+    function editSem (currSem: number) {
+        setEditRow(currSem);
+        alert("editSem has been used!");
+    }
+
+    function submitSem () {
+        alert("Submitted!");
+        setEditRow(0);
+    }
+
+    let newRow = 0;
     //<Row>ID {currID}</Row>
     return (
         <Card>
@@ -66,11 +82,30 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
                 { subjectList.map((sbj: Subject) => {
-                    return <tr key={sbj.id}>
-                        <td>{sbj.id}</td>
-                        <td>{sbj.name}</td>
-                        <td>{sbj.credits}</td>
-                    </tr>;
+                    {newRow++;} // Track what row it is on
+                    return (
+                        editRow == newRow ?  // If the current row was set to be edited, do this
+                            <tr key={sbj.id}> 
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td>
+                                    <input></input>
+                                </td>
+                                <td><Button onClick={submitSem}>Submit</Button></td>
+                            </tr>
+                            : // otherwise do what it originally does
+                            <tr key={sbj.id}> 
+                                <td>{sbj.id}</td>
+                                <td>{sbj.name}</td>
+                                <td>{sbj.credits}</td>
+                                <td><Button onClick={() => editSem(sbj.key)}>Edit</Button></td>
+                            </tr>
+                        
+                    );
                 })}
             </table>
             <Row>
