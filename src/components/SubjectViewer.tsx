@@ -66,7 +66,6 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
             <table>
                 <tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr>
-                {newRow = 0}
                 { subjectList.map((sbj: Subject) => {
                     {newRow++;} // Track what row it is on
                     return (
