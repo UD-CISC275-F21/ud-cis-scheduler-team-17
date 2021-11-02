@@ -73,7 +73,6 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                             <tr key={sbj.id}> 
                                 <td>
                                     <InputGroup className="sbj-id">
-                                        <InputGroup.Text id="basic-addon1">ID</InputGroup.Text>
                                         <FormControl
                                             placeholder={sbj.id}
                                             aria-label="ID"
@@ -83,7 +82,6 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                 </td>
                                 <td>
                                     <InputGroup className="sbj-name">
-                                        <InputGroup.Text id="basic-addon1">Name</InputGroup.Text>
                                         <FormControl
                                             placeholder={sbj.name}
                                             aria-label="Name"
@@ -93,7 +91,6 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                 </td>
                                 <td>
                                     <InputGroup className="sbj-credits">
-                                        <InputGroup.Text id="basic-addon1">Credits</InputGroup.Text>
                                         <FormControl
                                             placeholder={(sbj.credits).toString()}
                                             aria-label="Credits"
