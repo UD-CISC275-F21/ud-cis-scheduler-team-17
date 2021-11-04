@@ -49,14 +49,14 @@ export function OurTable() : JSX.Element {
         setID(tempid);
         const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         //temp.semester = currentSemester;
-        const sems: TableFace[] = semesters;
-        sems.push(temp);
+        const sems: TableFace[] = [...semesters, temp];
+        //sems.push(temp);
         setSem(sems);
     }
     
     function deleteSemester() {
         setID(currentID-1);
-        const sems: TableFace[] = semesters; 
+        const sems: TableFace[] = [...semesters]; 
         sems.pop();
         if (!sems[0]) {
             setID(-1);
