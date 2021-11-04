@@ -5,10 +5,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { OurTable } from "./components/Table";
 import { Container } from "react-bootstrap";
-/*
--NEEDS ADD TABLE BUTTON
--NEEDS TABLE COMPONENT RETURNED
-*/
 
 /*function App(): JSX.Element {
 

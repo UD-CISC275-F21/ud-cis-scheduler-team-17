@@ -8,7 +8,6 @@ import { useState } from "react";
 I think for this it should return a card and several subject components (which will need to be made for ease of adding classes).
 It should have the buttons to add courses.
 3 columns 5 rows default?
--NEEDS SUBJECTVIEWER COMPONENT FOR RETURN
 -NEEDS "ADD CLASS" BUTTON
 */
 export function OurTable() : JSX.Element {
@@ -50,14 +49,14 @@ export function OurTable() : JSX.Element {
         setID(tempid);
         const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
         //temp.semester = currentSemester;
-        const sems: TableFace[] = semesters;
-        sems.push(temp);
+        const sems: TableFace[] = [...semesters, temp];
+        //sems.push(temp);
         setSem(sems);
     }
     
     function deleteSemester() {
         setID(currentID-1);
-        const sems: TableFace[] = semesters; 
+        const sems: TableFace[] = [...semesters]; 
         sems.pop();
         if (!sems[0]) {
             setID(-1);
