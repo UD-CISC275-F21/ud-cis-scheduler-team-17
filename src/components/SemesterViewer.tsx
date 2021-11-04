@@ -1,7 +1,7 @@
 import { Row, Button } from "react-bootstrap";
 import React from "react";
 import { SubjectTable } from "./SubjectViewer";
-import { TableFace } from "../interfaces/tableface";
+import { TableFace } from "../interfaces/semester";
 import { useState } from "react";
 
 /*
@@ -24,7 +24,7 @@ export function OurTable() : JSX.Element {
     //setSemester(currentSemester); // This exists solely to appease the linter.
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
-    const [semesters, setSem] = useState<TableFace[]>([{id:currentID, semester: 1, year: 1}]);
+    const [semesters, setSem] = useState<TableFace[]>([{id:currentID, semesterNum: 1, year: 1}]);
 
     function addSemester() {
         const tempid = currentID+1;
@@ -47,7 +47,7 @@ export function OurTable() : JSX.Element {
 
         //setSemester(tempsem);
         setID(tempid);
-        const temp: TableFace = {id: tempid, semester: tempsem, year: tempyear};
+        const temp: TableFace = {id: tempid, semesterNum: tempsem, year: tempyear};
         //temp.semester = currentSemester;
         const sems: TableFace[] = [...semesters, temp];
         //sems.push(temp);
@@ -70,7 +70,7 @@ export function OurTable() : JSX.Element {
         //setSemester(0);
         //setYear(0);
         setID(0);
-        setSem([{id:0, semester: 1, year: 1}]);
+        setSem([{id:0, semesterNum: 1, year: 1}]);
         //addSemester();
     }
 
@@ -80,18 +80,18 @@ export function OurTable() : JSX.Element {
 
     return (
         <>
-            <Row><Button onClick={addSemester} className="m-3">Add Semester</Button></Row>
+            <Row><Button data-testid="add-semester-button" onClick={addSemester} className="m-3">Add Semester</Button></Row>
             <Row>
                 <table>
                     { semesters.map((sem: TableFace) => {
                         return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semester} currYear={sem.year} currID={sem.id} semList={semesters} setSemList={setSem} thisID={currentID} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
+                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={semesters} setSemList={setSem} thisID={currentID} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
             </Row>
-            <Button onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
-            <Button onClick={deleteAllSems} className="m-3">Start Over</Button>
+            <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
+            <Button data-testid="start-over-button" onClick={deleteAllSems} className="m-3">Start Over</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );

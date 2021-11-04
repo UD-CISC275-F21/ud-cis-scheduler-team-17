@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
-import { TableFace } from "../interfaces/tableface";
+import { TableFace } from "../interfaces/semester";
 
 export function SubjectTable({currID, currentSem, currYear, semList, setSemList, thisID, idSet, semPer}:{
     currID: number,
@@ -51,10 +51,10 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             for (let i=currID; fixedList[i]; i++) {
                 temp = fixedList[i];
                 temp.id = i;
-                temp.semester -= 1;
-                if (temp.semester==0) {
+                temp.semesterNum -= 1;
+                if (temp.semesterNum==0) {
                     temp.year -= 1;
-                    temp.semester = semPer;
+                    temp.semesterNum = semPer;
                 }
                 fixedList[i] = temp;
             }
