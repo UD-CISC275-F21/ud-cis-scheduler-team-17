@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import {Subject} from "../interfaces/subject";
-import { Card, Row, Button, Col } from "react-bootstrap";
+import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { TableFace } from "../interfaces/tableface";
 
 export function SubjectTable({currID, currentSem, currYear, semList, setSemList, thisID, idSet, semPer}:{
@@ -17,7 +17,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
     const [currentKey, setKey] = useState<number>(0);
-    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey}]);
+    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4},{id: currentId, name: courseName, credits: 3, key: 5}]);
 
     const [editRow, setEditRow] = useState<number>(0);
 
@@ -30,6 +30,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         const sub: Subject[] = subjectList;
         sub.push(temp);
         setSub(sub);
+        // Need to fix key generation
     }
 
     function deleteCourse () {
@@ -75,6 +76,8 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     let newRow = 0;
+
+
     //<Row>ID {currID}</Row>
     return (
         <Card>
@@ -84,16 +87,34 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 { subjectList.map((sbj: Subject) => {
                     {newRow++;} // Track what row it is on
                     return (
-                        editRow == newRow ?  // If the current row was set to be edited, do this
+                        editRow == newRow ? // If the current row was set to be edited, do this
                             <tr key={sbj.id}> 
                                 <td>
-                                    <input></input>
+                                    <InputGroup className="sbj-id">
+                                        <FormControl
+                                            placeholder={sbj.id}
+                                            aria-label="ID"
+                                            aria-describedby="basic-addon1"
+                                        />
+                                    </InputGroup>
                                 </td>
                                 <td>
-                                    <input></input>
+                                    <InputGroup className="sbj-name">
+                                        <FormControl
+                                            placeholder={sbj.name}
+                                            aria-label="Name"
+                                            aria-describedby="basic-addon1"
+                                        />
+                                    </InputGroup>
                                 </td>
                                 <td>
-                                    <input></input>
+                                    <InputGroup className="sbj-credits">
+                                        <FormControl
+                                            placeholder={sbj.credits.toString()}
+                                            aria-label="Credits"
+                                            aria-describedby="basic-addon1"
+                                        />
+                                    </InputGroup>
                                 </td>
                                 <td><Button onClick={submitSem}>Submit</Button></td>
                             </tr>
@@ -104,7 +125,6 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                 <td>{sbj.credits}</td>
                                 <td><Button onClick={() => editSem(sbj.key)}>Edit</Button></td>
                             </tr>
-                        
                     );
                 })}
             </table>
