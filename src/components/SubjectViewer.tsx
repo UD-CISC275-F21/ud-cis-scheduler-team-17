@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { TableFace } from "../interfaces/tableface";
@@ -13,16 +14,31 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     idSet: (num: number) => void,
     semPer: number
 }) : JSX.Element {
-    const [subjectList, setSubjectList] = useState<Subject[]>([
-        {id: "CISC106", name: "General Computer Science for Engineers", credits: 3, key: 1},
-        {id: "CISC", name: "ClassName", credits: 3, key: 2},
-        {id: "CISC", name: "ClassName", credits: 3, key: 3},
-        {id: "CISC", name: "ClassName", credits: 3, key: 4},
-        {id: "CISC", name: "ClassName", credits: 3, key: 5}]);
+    const [currentId, setId] = useState<string>("CISC");
+    const [courseName, setcourseName]  = useState<string>("ClassName");
+    const [currentKey, setKey] = useState<number>(0);
+    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey}]);
 
     const [editRow, setEditRow] = useState<number>(0);
 
-    
+    function addCourse () {
+        const tempKey = currentKey + 1;
+        setKey(tempKey);
+        setId(currentId);
+        setcourseName(courseName);
+        const temp: Subject = {id: currentId, name: courseName, credits: 3, key: tempKey};
+        const sub: Subject[] = subjectList;
+        sub.push(temp);
+        setSub(sub);
+    }
+
+    function deleteCourse () {
+        setKey(currentKey - 1);
+        const sub: Subject[] = subjectList;
+        sub.pop();
+        setSub(sub);
+    }
+
     function deleteSem () {
         //idSet(thisID+1);
         const fixedList: TableFace[] = semList;
@@ -59,6 +75,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     let newRow = 0;
+
 
     //<Row>ID {currID}</Row>
     return (
@@ -112,8 +129,8 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 })}
             </table>
             <Row>
-                <Col><Button >Add Course</Button></Col>
-                <Col><Button >Delete Course</Button></Col>
+                <Col><Button onClick={addCourse}>Add Course</Button></Col>
+                <Col><Button onClick = {deleteCourse}>Delete Course</Button></Col>
                 <Col><Button onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
         </Card>
