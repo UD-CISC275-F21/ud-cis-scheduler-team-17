@@ -17,7 +17,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
     const [currentKey, setKey] = useState<number>(0);
-    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey},{id: currentId, name: courseName, credits: 3, key: currentKey}]);
+    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4},{id: currentId, name: courseName, credits: 3, key: 5}]);
 
     const [editRow, setEditRow] = useState<number>(0);
 
@@ -30,6 +30,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         const sub: Subject[] = subjectList;
         sub.push(temp);
         setSub(sub);
+        // Need to fix key generation
     }
 
     function deleteCourse () {
@@ -86,7 +87,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 { subjectList.map((sbj: Subject) => {
                     {newRow++;} // Track what row it is on
                     return (
-                        (editRow == newRow) ? ( // If the current row was set to be edited, do this
+                        editRow == newRow ? // If the current row was set to be edited, do this
                             <tr key={sbj.id}> 
                                 <td>
                                     <InputGroup className="sbj-id">
@@ -109,7 +110,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                 <td>
                                     <InputGroup className="sbj-credits">
                                         <FormControl
-                                            placeholder={(sbj.credits).toString()}
+                                            placeholder={sbj.credits.toString()}
                                             aria-label="Credits"
                                             aria-describedby="basic-addon1"
                                         />
@@ -117,14 +118,13 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                 </td>
                                 <td><Button onClick={submitSem}>Submit</Button></td>
                             </tr>
-                        ):( // otherwise do what it originally does
+                            : // otherwise do what it originally does
                             <tr key={sbj.id}> 
                                 <td>{sbj.id}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
                                 <td><Button onClick={() => editSem(sbj.key)}>Edit</Button></td>
                             </tr>
-                        )
                     );
                 })}
             </table>
