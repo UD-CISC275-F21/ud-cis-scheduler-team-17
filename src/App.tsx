@@ -3,7 +3,7 @@ import React from "react";
 //import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { OurTable } from "./components/Table";
+import { SemesterTable } from "./components/SemesterViewer";
 import { Container } from "react-bootstrap";
 
 /*function App(): JSX.Element {
@@ -32,7 +32,7 @@ function App(): JSX.Element {
 
     return (
         <Container>
-            <OurTable></OurTable>
+            <SemesterTable></SemesterTable>
         </Container>
     );
 }

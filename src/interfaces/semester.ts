@@ -3,7 +3,7 @@
 export interface TableFace {
     //ki: number
     id: number
-    semester: number
+    semesterNum: number
     year: number
     //innerTable: typeof SubjectTable
 }
