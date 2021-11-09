@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
+import { start } from "repl";
 
 /*test("renders UD CIS Scheduler text", () => {
     render(<App />);
@@ -43,6 +44,17 @@ describe("App", () => {
         deleteLastSemButton.click();
         const newListOfSemesters = await screen.queryAllByText(/Semester \d Year \d/);
         expect(listOfSemesters.length-1).toEqual(newListOfSemesters.length);
+    });
+
+    it("should clear and add one semester when Start Over button is clicked", async () => {
+        const startOverButton = screen.getByTestId("start-over-button");
+        const addSemesterButton = screen.getByTestId("add-semester-button");
+        addSemesterButton.click();
+        const twoSemesterList = screen.getAllByText(/Semester \d Year \d/);
+        startOverButton.click();
+        const resetSemesterList = screen.getAllByText(/Semester \d Year \d/);
+        expect(resetSemesterList.length).toEqual(1);
+        expect(resetSemesterList).not.toEqual(twoSemesterList);
     });
 
     it("adds a course when you click Add Course button", async () => {
