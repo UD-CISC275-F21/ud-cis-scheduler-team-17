@@ -131,7 +131,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <Row>
                 <Col><Button onClick={addCourse}>Add Course</Button></Col>
                 <Col><Button onClick = {deleteCourse}>Delete Course</Button></Col>
-                <Col><Button onClick={deleteSem}>Delete This Semester</Button></Col>
+                <Col><Button data-testid="delete-this-semester-button" onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
         </Card>
     );
