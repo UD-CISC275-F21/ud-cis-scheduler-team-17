@@ -40,6 +40,11 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         setSub(sub);
     }
 
+    function clearCourse () {
+        setKey(0);
+        setSub([{id: currentId, name: courseName, credits: 3, key: 0}]);
+    }
+
     function deleteSem () {
         //idSet(thisID+1);
         const fixedList: TableFace[] = [...semList];
