@@ -59,10 +59,12 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                 fixedList[i] = temp;
             }
             idSet(thisID-1);
-            setSemList(fixedList);
+            //setSemList(fixedList);
         } else {
             idSet(-1);
+            //setSemList(fixedList);
         }
+        setSemList(fixedList);
     }
 
     function editSem (currSem: number) {
