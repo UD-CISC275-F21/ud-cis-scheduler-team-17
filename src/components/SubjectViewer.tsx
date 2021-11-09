@@ -17,7 +17,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
     const [currentKey, setKey] = useState<number>(0);
-    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4},{id: currentId, name: courseName, credits: 3, key: 5}]);
+    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: 0},{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4}]);
 
     const [editRow, setEditRow] = useState<number>(0);
 
@@ -38,6 +38,11 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         const sub: Subject[] = subjectList;
         sub.pop();
         setSub(sub);
+    }
+
+    function clearCourse () {
+        setKey(0);
+        setSub([{id: currentId, name: courseName, credits: 3, key: 0}]);
     }
 
     function deleteSem () {
@@ -131,6 +136,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <Row>
                 <Col><Button onClick={addCourse}>Add Course</Button></Col>
                 <Col><Button onClick = {deleteCourse}>Delete Course</Button></Col>
+                <Col><Button onClick={clearCourse}>Clear Courses</Button></Col>
                 <Col><Button onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
         </Card>
