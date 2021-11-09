@@ -41,7 +41,23 @@ describe("App", () => {
         const deleteLastSemButton = screen.getByTestId("delete-last-semester-button");
         const listOfSemesters = screen.getAllByText(/Semester \d Year \d/);
         deleteLastSemButton.click();
-        const newListOfSemesters = await screen.getAllByText(/Semester \d Year \d/);
+        const newListOfSemesters = await screen.queryAllByText(/Semester \d Year \d/);
         expect(listOfSemesters.length-1).toEqual(newListOfSemesters.length);
+    });
+
+    it("adds a course when you click Add Course button", async () => {
+        const addCourseButton = screen.getByTestId("add-course-button");
+        const listOfCourses = screen.getAllByText(/CISC/);
+        addCourseButton.click();
+        const newListOfCourses = screen.getAllByText(/CISC/);
+        expect(listOfCourses.length+1).toEqual(newListOfCourses.length)
+    });
+
+    it("deletes last course when you click Delete Course button", async () => {
+        const deleteCourseButton = screen.getByTestId("delete-last-course-button");
+        const listOfCourses = screen.getAllByText(/CISC/);
+        deleteCourseButton.click();
+        const newListOfCourses = screen.queryAllByText(/CISC/);
+        expect(listOfCourses.length-1).toEqual(newListOfCourses.length)
     });
 });
