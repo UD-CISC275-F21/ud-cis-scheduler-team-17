@@ -72,4 +72,12 @@ describe("App", () => {
         const newListOfCourses = screen.queryAllByText(/CISC/);
         expect(listOfCourses.length-1).toEqual(newListOfCourses.length)
     });
+
+    it("deletes the semester when Delete This Semester button clicked", async () => {
+        const deleteThisSemesterButton = screen.getByTestId("delete-this-semester-button");
+        const initialSemesterList = screen.getAllByText(/Semester \d Year \d/);
+        deleteThisSemesterButton.click();
+        const deletedSemesterList = screen.queryAllByText(/Semester \d Year \d/);
+        expect(deletedSemesterList.length).toEqual(initialSemesterList.length-1);
+    });
 });
