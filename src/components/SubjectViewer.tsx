@@ -20,6 +20,9 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4},{id: currentId, name: courseName, credits: 3, key: 5}]);
 
     const [editRow, setEditRow] = useState<number>(0);
+    const [editId, setEditId] = useState<string>("");
+    const [editName, setEditName] = useState<string>("");
+    const [editCredits, setEditCredits] = useState<number>(0);
 
     function addCourse () {
         const tempKey = currentKey + 1;
@@ -74,10 +77,14 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
 
     function editSem (currSem: number) {
         setEditRow(currSem);
-        alert("editSem has been used!");
     }
 
     function submitSem () {
+        const tempList = subjectList;
+        tempList[editRow-1].id = editId;
+        tempList[editRow-1].name = editName;
+        tempList[editRow-1].credits = editCredits;
+        setSub(tempList);
         alert("Submitted!");
         setEditRow(0);
     }
@@ -95,6 +102,11 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                     {newRow++;} // Track what row it is on
                     return (
                         editRow == newRow ? // If the current row was set to be edited, do this
+                            /** Editing bugs - Riyara:
+                             *  - Was Start Over a bit buggy before? If not I messed with it a little, sorry.
+                             *  - If you submit with nothing in there, it will use default values (0) or the previously used edit values
+                             *  - Probably isn't nice-looking that it says "NaN" if you put in a non-number for credits. Easily fixable I'd imagine
+                            */
                             <tr key={sbj.key}> 
                                 <td>
                                     <InputGroup className="sbj-id">
@@ -102,6 +114,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                             placeholder={sbj.id}
                                             aria-label="ID"
                                             aria-describedby="basic-addon1"
+                                            onChange={(event) => setEditId(event.target.value)}
                                         />
                                     </InputGroup>
                                 </td>
@@ -111,6 +124,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                             placeholder={sbj.name}
                                             aria-label="Name"
                                             aria-describedby="basic-addon1"
+                                            onChange={(event) => setEditName(event.target.value)}
                                         />
                                     </InputGroup>
                                 </td>
@@ -120,6 +134,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                             placeholder={sbj.credits.toString()}
                                             aria-label="Credits"
                                             aria-describedby="basic-addon1"
+                                            onChange={(event) => setEditCredits(parseInt(event.target.value,10))}
                                         />
                                     </InputGroup>
                                 </td>
