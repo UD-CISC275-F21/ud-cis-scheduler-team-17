@@ -78,6 +78,9 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     function submitSem () {
+        const tempList = subjectList;
+        tempList[editRow-1].credits = 0;
+        setSub(tempList);
         alert("Submitted!");
         setEditRow(0);
     }
