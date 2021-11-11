@@ -20,6 +20,9 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4},{id: currentId, name: courseName, credits: 3, key: 5}]);
 
     const [editRow, setEditRow] = useState<number>(0);
+    const [editID, setEditID] = useState<string>("");
+    const [editName, setEditName] = useState<string>("");
+    const [editCredits, setEditCredits] = useState<number>(0);
 
     function addCourse () {
         const tempKey = currentKey + 1;
@@ -79,7 +82,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
 
     function submitSem () {
         const tempList = subjectList;
-        tempList[editRow-1].credits = 0;
+        tempList[editRow-1].credits = editCredits;
         setSub(tempList);
         alert("Submitted!");
         setEditRow(0);
@@ -123,6 +126,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                             placeholder={sbj.credits.toString()}
                                             aria-label="Credits"
                                             aria-describedby="basic-addon1"
+                                            onChange={(event) => setEditCredits(parseInt(event.target.value,10))}
                                         />
                                     </InputGroup>
                                 </td>
