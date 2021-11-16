@@ -1,0 +1,226 @@
+[
+    {
+        "id": "CISC108",
+        "name": "Introduction to Computer Science I",
+        "credits": 3,
+        "coreq": "MATH115, MATH117"
+    },
+    {
+        "id": "CISC181",
+        "name": "Introduction to Computer Science II",
+        "credits": 3,
+        "prereq": "CISC108/CISC106",
+        "coreq": "MATH221, MATH241"
+    },
+    {
+        "id": "CISC210",
+        "name": "Introduction to Systems Programming",
+        "credits": 3,
+        "prereq": "CISC108/CISC106",
+        "coreq": "MATH221, MATH241"
+    },
+    {
+        "id": "CISC220",
+        "name": "Data Structures",
+        "credits": 3,
+        "prereq": "CISC181",
+        "coreq": "MATH210, MATH241"
+    },
+    {
+        "id": "CISC260",
+        "name": "Machine Org. and Assembly Language",
+        "credits": 3,
+        "prereq": "CISC181"
+    },
+    {
+        "id": "CISC275",
+        "name": "Introduction to Software Engineering",
+        "credits": 3,
+        "prereq": "CISC220"
+    },
+    {
+        "id": "CISC303",
+        "name": "Automata Theory",
+        "credits": 3,
+        "prereq": "MATH210, CISC220"
+    },
+    {
+        "id": "CISC304",
+        "name": "Logic for Programming",
+        "credits": 3,
+        "prereq": "CISC 220, MATH 210"
+    },
+    {
+        "id": "CISC320",
+        "name": "Introduction to Algorithms",
+        "credits": 3,
+        "prereq": "MATH210, CISC220"
+    },
+    {
+        "id": "CISC355",
+        "name": "Computers Ethics & Society",
+        "credits": 3
+    },
+    {
+        "id": "CISC361",
+        "name": "Operating Systems",
+        "credits": 3,
+        "prereq": "CISC 220, CISC 260 or CPEG 222"
+    },
+    {
+        "id": "CISC372",
+        "name": "Parallel Computing",
+        "credits": 3,
+        "prereq": "CISC220, CISC260"
+    },
+    {
+        "id": "CISC498",
+        "name": "Computer Science Senior Design Project I",
+        "credits": 3,
+        "prereq": "CISC275, CISC320"
+    },
+    {
+        "id": "CISC499",
+        "name": "Computer Science Senior Design Project II",
+        "credits": 3,
+        "prereq": "CISC498"
+    },
+    {
+        "id": "EGGG101",
+        "name": "Introduction to Engineering",
+        "credits": 2
+    },
+    {
+        "id": "ENGL110",
+        "name": "Seminar in Composition",
+        "credits": 3
+    },
+    {
+        "id": "ENGL312",
+        "name": "Written Communications in Business",
+        "credits": 3,
+        "prereq": "ENGL110"
+    },
+    {
+        "id": "ENGL410",
+        "name": "Technical Writing",
+        "credits": 3,
+        "prereq": "ENGL110"
+    },
+    {
+        "id": "MATH205",
+        "name": "Statistical Methods",
+        "credits": 4,
+        "prereq": "MATH 210/MATH 230"
+    },
+    {
+        "id": "MATH210",
+        "name": "Discrete Mathematics I",
+        "credits": 3,
+        "coreq": "MATH 241, MATH 242, MATH 232"
+    },
+    {
+        "id": "MATH241",
+        "name": "Analytic Geometry and Calculus A",
+        "credits": 4,
+        "prereq": "MATH117"
+    },
+    {
+        "id": "MATH242",
+        "name": "Analytic Geometry and Calculus B",
+        "credits": 4,
+        "prereq": "MATH232/MATH241"
+    },
+    {
+        "id": "UNIV401",
+        "name": "Senior Thesis",
+        "credits": "2021-02-04T05:00:00.000Z"
+    },
+    {
+        "id": "PHYS207",
+        "name": "Fundamentals of Physics I",
+        "credits": 4,
+        "coreq": "MATH241"
+    },
+    {
+        "id": "PHYS208",
+        "name": "Fundamentals of Physics II",
+        "credits": 4,
+        "prereq": "PHYS 207, MATH 241",
+        "coreq": "MATH242"
+    },
+    {
+        "id": "CHEM103",
+        "name": "Gneral Chemistry",
+        "credits": 4,
+        "coreq": "MATH 114, MATH 115, or MATH 117"
+    },
+    {
+        "id": "CHEM103",
+        "name": "Gneral Chemistry",
+        "credits": 4,
+        "prereq": "CHEM 101, CHEM 103, CHEM 105, CHEM107, or CHEM 111"
+    },
+    {
+        "id": "CHEM107",
+        "name": "General Chemistry For Life Sciences I",
+        "credits": 4,
+        "coreq": "MATH 114 or higher"
+    },
+    {
+        "id": "CHEM108",
+        "name": "General Chemistry for Life Sciences II",
+        "credits": 4,
+        "prereq": "CHEM 107, BISC 207",
+        "coreq": "BISC 208"
+    },
+    {
+        "id": "BISC207",
+        "name": "Introductory Biology I",
+        "credits": 4,
+        "coreq": "CHEM 103 or CHEM 107 or CHEM 111"
+    },
+    {
+        "id": "BISC208",
+        "name": "Introductory Biology II",
+        "credits": 4,
+        "prereq": "BISC 207 or BISC 205",
+        "coreq": "CHEM 104 or CHEM 108 or CHEM 112"
+    },
+    {
+        "id": "GEOL105",
+        "name": "Geological Hazards and Their Human Impact",
+        "credits": 3
+    },
+    {
+        "id": "GEOL107",
+        "name": "Geology of Dynamic Earth",
+        "credits": 4
+    },
+    {
+        "id": "GEOL115",
+        "name": "Geological Hazards Laboratory",
+        "credits": 1,
+        "coreq": "GEOL 105"
+    },
+    {
+        "id": "GEOL107",
+        "name": "Geology of Dynamic Earth",
+        "credits": 4
+    },
+    {
+        "id": "GEOL110",
+        "name": "Earth’s Evolving Systems",
+        "credits": 4
+    },
+    {
+        "id": "HIST101",
+        "name": "Europe and the World to 1648",
+        "credits": 3
+    },
+    {
+        "id": "HIST102",
+        "name": "Europe and the World since 1648",
+        "credits": 3
+    }
+]
