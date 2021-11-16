@@ -24,7 +24,7 @@ export function SemesterTable() : JSX.Element {
     //setSemester(currentSemester); // This exists solely to appease the linter.
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
-    const [semesters, setSem] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1}]);
+    const [allSemesters, setSem] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1}]);
 
     function addSemester() {
         const tempid = currentID+1;
@@ -49,14 +49,14 @@ export function SemesterTable() : JSX.Element {
         setID(tempid);
         const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear};
         //temp.semester = currentSemester;
-        const sems: Semester[] = [...semesters, temp];
+        const sems: Semester[] = [...allSemesters, temp];
         //sems.push(temp);
         setSem(sems);
     }
     
     function deleteSemester() {
         setID(currentID-1);
-        const sems: Semester[] = [...semesters]; 
+        const sems: Semester[] = [...allSemesters]; 
         sems.pop();
         if (!sems[0]) {
             setID(-1);
@@ -83,9 +83,9 @@ export function SemesterTable() : JSX.Element {
             <Row><Button data-testid="add-semester-button" onClick={addSemester} className="m-3">Add Semester</Button></Row>
             <Row>
                 <table>
-                    { semesters.map((sem: Semester) => {
+                    { allSemesters.map((sem: Semester) => {
                         return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={semesters} setSemList={setSem} thisID={currentID} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
+                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={setSem} thisID={currentID} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
