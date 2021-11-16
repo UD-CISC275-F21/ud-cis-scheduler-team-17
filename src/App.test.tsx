@@ -46,14 +46,14 @@ describe("App", () => {
         expect(listOfSemesters.length-1).toEqual(newListOfSemesters.length);
     });
 
-    it("should clear and add one semester when Start Over button is clicked", async () => {
-        const startOverButton = screen.getByTestId("start-over-button");
+    it("should clear and add one semester when Clear All Semesters button is clicked", async () => {
+        const startOverButton = screen.getByTestId("clear-all-semesters-button");
         const addSemesterButton = screen.getByTestId("add-semester-button");
         addSemesterButton.click();
         const twoSemesterList = screen.getAllByText(/Semester \d Year \d/);
         startOverButton.click();
-        const resetSemesterList = screen.getAllByText(/Semester \d Year \d/);
-        expect(resetSemesterList.length).toEqual(1);
+        const resetSemesterList = screen.queryAllByText(/Semester \d Year \d/);
+        expect(resetSemesterList.length).toEqual(0);
         expect(resetSemesterList).not.toEqual(twoSemesterList);
     });
 

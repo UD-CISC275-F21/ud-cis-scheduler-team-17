@@ -69,8 +69,8 @@ export function SemesterTable() : JSX.Element {
     function deleteAllSems() {
         //setSemester(0);
         //setYear(0);
-        setID(0);
-        setSem([{id:0, semesterNum: 1, year: 1}]);
+        setID(-1);
+        setSem([]);
         //addSemester();
     }
 
@@ -91,7 +91,7 @@ export function SemesterTable() : JSX.Element {
                 </table>
             </Row>
             <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
-            <Button data-testid="start-over-button" onClick={deleteAllSems} className="m-3">Start Over</Button>
+            <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="m-3">Clear All Semesters</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
