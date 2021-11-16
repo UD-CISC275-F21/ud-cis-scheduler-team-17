@@ -2,14 +2,14 @@ import React from "react";
 import { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
-import { TableFace } from "../interfaces/semester";
+import { Semester } from "../interfaces/semester";
 
 export function SubjectTable({currID, currentSem, currYear, semList, setSemList, thisID, idSet, semPer}:{
     currID: number,
     currentSem: number,
     currYear: number,
-    semList: TableFace[],
-    setSemList: (semList: TableFace[]) => void,
+    semList: Semester[],
+    setSemList: (semList: Semester[]) => void,
     thisID: number,
     idSet: (num: number) => void,
     semPer: number
@@ -49,13 +49,14 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     function deleteSem () {
+        //TODO: No, bad, fix this. No changing indexes, you lazy bean!
         //idSet(thisID+1);
-        const fixedList: TableFace[] = [...semList];
+        const fixedList: Semester[] = [...semList];
         //const idx = fixedList.indexOf({id: currID, semester: currentSem, year: currYear});
         //const idx = fixedList.indexOf(this);
         fixedList.splice(currID, 1);
         if (fixedList[0]) {
-            let temp: TableFace; 
+            let temp: Semester; 
             for (let i=currID; fixedList[i]; i++) {
                 temp = fixedList[i];
                 temp.id = i;
