@@ -40,6 +40,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         setSub(sub);
     }
 
+    //TODO: Figure out button for below function
     /*function clearCourse () {
         setKey(0);
         setSub([{id: currentId, name: courseName, credits: 3, key: 0}]);

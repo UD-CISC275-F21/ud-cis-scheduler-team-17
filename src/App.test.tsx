@@ -80,4 +80,6 @@ describe("App", () => {
         const deletedSemesterList = screen.queryAllByText(/Semester \d Year \d/);
         expect(deletedSemesterList.length).toEqual(initialSemesterList.length-1);
     });
+
+    //TODO: Test clear all courses button
 });
