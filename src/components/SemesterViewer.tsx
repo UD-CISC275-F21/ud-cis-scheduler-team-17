@@ -1,4 +1,4 @@
-import { Row, Button } from "react-bootstrap";
+import { Row, Button, Card } from "react-bootstrap";
 import React from "react";
 import { SubjectTable } from "./SubjectViewer";
 import { Semester } from "../interfaces/semester";
@@ -24,16 +24,19 @@ export function SemesterTable() : JSX.Element {
     //setSemester(currentSemester); // This exists solely to appease the linter.
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
-    const [allSemesters, setSem] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1}]);
+    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1}]);
+    
+    const [semesterCounter, setSemesterCounter] = useState<number>(0);
 
     function addSemester() {
+        const tempSemCounter = semesterCounter+1;
         const tempid = currentID+1;
-        let tempsem = (1+tempid)%semestersPerYear;
+        let tempsem = (1+tempSemCounter)%semestersPerYear;
         /*if (currentID===0) {
             tempsem = 2;
         }*/
         //let tempyear = currentYear;
-        const tempyear = Math.trunc(tempid/semestersPerYear)+1;
+        const tempyear = Math.trunc(tempSemCounter/semestersPerYear)+1;
         if (tempsem===0) {
             tempsem+=semestersPerYear;
         }
@@ -51,7 +54,8 @@ export function SemesterTable() : JSX.Element {
         //temp.semester = currentSemester;
         const sems: Semester[] = [...allSemesters, temp];
         //sems.push(temp);
-        setSem(sems);
+        changeSemesters(sems);
+        setSemesterCounter(tempSemCounter);
     }
     
     function deleteSemester() {
@@ -63,14 +67,15 @@ export function SemesterTable() : JSX.Element {
             //setYear(0);
             //setSemester(0);
         }
-        setSem(sems);
+        changeSemesters(sems);
     }
     
     function deleteAllSems() {
         //setSemester(0);
         //setYear(0);
         setID(-1);
-        setSem([]);
+        changeSemesters([]);
+        setSemesterCounter(-1);
         //addSemester();
     }
 
@@ -85,7 +90,7 @@ export function SemesterTable() : JSX.Element {
                 <table>
                     { allSemesters.map((sem: Semester) => {
                         return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={setSem} thisID={currentID} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
+                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} semCounter={semesterCounter} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
