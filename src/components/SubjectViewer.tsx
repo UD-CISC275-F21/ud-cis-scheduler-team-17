@@ -43,10 +43,10 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         setSub(sub);
     }
 
-    /*function clearCourse () {
+    function clearCourse () {
         setKey(0);
         setSub([{id: currentId, name: courseName, credits: 3, key: 0}]);
-    }*/
+    }
 
     function deleteSem () {
         //idSet(thisID+1);
@@ -153,6 +153,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <Row>
                 <Col><Button data-testid="add-course-button"onClick={addCourse}>Add Course</Button></Col>
                 <Col><Button data-testid="delete-last-course-button"onClick = {deleteCourse}>Delete Course</Button></Col>
+                <Col><Button data-testid="clear-courses-button" onClick={clearCourse}>Clear Courses</Button></Col>
                 <Col><Button data-testid="delete-this-semester-button" onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
         </Card>

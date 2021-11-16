@@ -10,12 +10,12 @@ It should have the buttons to add courses.
 3 columns 5 rows default?
 -NEEDS "ADD CLASS" BUTTON
 */
+
 export function SemesterTable() : JSX.Element {
     //const defaultID = 1;
     //const [currentSemester, setSemester] = useState<number>(0);
     //const [currentYear, setYear] = useState<number>(0);
     const [currentID, setID] = useState<number>(0);
-    //const [currentki, setki] = useState<number>(1);
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
     //let newSemester: TableFace = 
     /*const semesters: TableFace[] = [
