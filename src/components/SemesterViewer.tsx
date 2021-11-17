@@ -79,8 +79,15 @@ export function SemesterTable() : JSX.Element {
         //addSemester();
     }
 
+    // Credit to https://stackoverflow.com/questions/66801478/write-to-a-text-or-json-file-react-node for the JSON saving function
     function saveToJSON() {
-        alert("Hi I'm a button that does cool things.");
+        const fileData = JSON.stringify(allSemesters);
+        const blob = new Blob([fileData], {type: "text/plain"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = "filename.json";
+        link.href = url;
+        link.click();
     }
 
     /*const tempSems: TableFace[] = semesters;
