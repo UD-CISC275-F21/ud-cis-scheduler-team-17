@@ -1,6 +1,6 @@
 //import { SubjectTable } from "../components/SubjectViewer";
 
-export interface TableFace {
+export interface Semester {
     //ki: number
     id: number
     semesterNum: number

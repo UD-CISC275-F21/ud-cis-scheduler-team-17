@@ -2,15 +2,15 @@ import React from "react";
 import { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
-import { TableFace } from "../interfaces/semester";
+import { Semester } from "../interfaces/semester";
 
-export function SubjectTable({currID, currentSem, currYear, semList, setSemList, thisID, idSet, semPer}:{
+export function SubjectTable({currID, currentSem, currYear, semList, setSemList, semCounter, idSet, semPer}:{
     currID: number,
     currentSem: number,
     currYear: number,
-    semList: TableFace[],
-    setSemList: (semList: TableFace[]) => void,
-    thisID: number,
+    semList: Semester[],
+    setSemList: (semList: Semester[]) => void,
+    semCounter: number,
     idSet: (num: number) => void,
     semPer: number
 }) : JSX.Element {
@@ -23,6 +23,12 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     const [editId, setEditId] = useState<string>("");
     const [editName, setEditName] = useState<string>("");
     const [editCredits, setEditCredits] = useState<number>(0);
+
+    //const semesterID = currID.valueOf();
+    //const currentSemesterNumber = currentSem.valueOf();
+    //const currentSemesterYear = currYear.valueOf();
+    //const currentSemesterNumber = currentSem;
+    //const currentSemesterYear = currYear;
 
     function addCourse () {
         const tempKey = currentKey + 1;
@@ -49,13 +55,19 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     function deleteSem () {
+        //TODO: No, bad, fix this. No changing indexes, you lazy bean!
         //idSet(thisID+1);
-        const fixedList: TableFace[] = [...semList];
-        //const idx = fixedList.indexOf({id: currID, semester: currentSem, year: currYear});
+        const fixedList: Semester[] = [...semList];
+        const toDelete: Semester = {id: currID, semesterNum: currentSem, year: currYear};
+        const idx = fixedList.indexOf(toDelete);
+        if (idx===-1) {
+            alert("element not found");
+        }
+        fixedList.splice(idx, 1);
         //const idx = fixedList.indexOf(this);
-        fixedList.splice(currID, 1);
-        if (fixedList[0]) {
-            let temp: TableFace; 
+        //fixedList.splice(currID, 1);
+        /*if (fixedList[0]) {
+            let temp: Semester; 
             for (let i=currID; fixedList[i]; i++) {
                 temp = fixedList[i];
                 temp.id = i;
@@ -71,7 +83,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         } else {
             idSet(-1);
             //setSemList(fixedList);
-        }
+        }*/
         setSemList(fixedList);
     }
 
@@ -92,12 +104,13 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     let newRow = 0;
 
 
-    //<Row>ID {currID}</Row>
+    //<Row>ID {semesterID}</Row>
     return (
         <Card>
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
             <table>
                 <thead><tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr></thead>
+                <Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
                 { subjectList.map((sbj: Subject) => {
                     {newRow++;} // Track what row it is on
                     return (
