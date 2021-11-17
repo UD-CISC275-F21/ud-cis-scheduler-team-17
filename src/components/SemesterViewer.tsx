@@ -79,6 +79,10 @@ export function SemesterTable() : JSX.Element {
         //addSemester();
     }
 
+    function saveToJSON() {
+        alert("Hi I'm a button that does cool things.");
+    }
+
     /*const tempSems: TableFace[] = semesters;
     tempSems.push({semester: currentSemester});
     addSem(tempSems);*/
@@ -97,6 +101,7 @@ export function SemesterTable() : JSX.Element {
             </Row>
             <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="m-3">Clear All Semesters</Button>
+            <Button data-testid="save-to-json-button" onClick={saveToJSON} className="m-3">Save</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
