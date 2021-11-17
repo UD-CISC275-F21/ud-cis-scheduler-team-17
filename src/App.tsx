@@ -31,6 +31,7 @@ function App(): JSX.Element {
     //TODO: Save/Load
     //TODO: Export/Import (CSV/PDF?) (Do some research)
     //TODO: Make it look nice
+    //TODO: Welcome screen
 
     return (
         <Container>

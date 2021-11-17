@@ -2,17 +2,19 @@ import React from "react";
 import { useState } from "react";
 import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
-import { TableFace } from "../interfaces/semester";
+import { Semester } from "../interfaces/semester";
 
-export function SubjectTable({currID, currentSem, currYear, semList, setSemList, thisID, idSet, semPer}:{
+export function SubjectTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount}:{
     currID: number,
     currentSem: number,
     currYear: number,
-    semList: TableFace[],
-    setSemList: (semList: TableFace[]) => void,
-    thisID: number,
+    semList: Semester[],
+    setSemList: (semList: Semester[]) => void,
+    lastID: number,
     idSet: (num: number) => void,
-    semPer: number
+    semPer: number,
+    semCount: number,
+    setSemCount: (num: number) => void
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
@@ -23,6 +25,12 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     const [editId, setEditId] = useState<string>("");
     const [editName, setEditName] = useState<string>("");
     const [editCredits, setEditCredits] = useState<number>(0);
+
+    //const semesterID = currID.valueOf();
+    //const currentSemesterNumber = currentSem.valueOf();
+    //const currentSemesterYear = currYear.valueOf();
+    //const currentSemesterNumber = currentSem;
+    //const currentSemesterYear = currYear;
 
     function addCourse () {
         const tempKey = currentKey + 1;
@@ -49,29 +57,34 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     function deleteSem () {
-        //idSet(thisID+1);
-        const fixedList: TableFace[] = [...semList];
-        //const idx = fixedList.indexOf({id: currID, semester: currentSem, year: currYear});
+        idSet(lastID+1);
+        const fixedList: Semester[] = [...semList];
+        //const toDelete: Semester = {id: currID, semesterNum: currentSem, year: currYear};
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        /*if (idx===-1) {
+            alert("element not found");
+        }*/
+        fixedList.splice(idx, 1);
         //const idx = fixedList.indexOf(this);
-        fixedList.splice(currID, 1);
+        //fixedList.splice(currID, 1);
         if (fixedList[0]) {
-            let temp: TableFace; 
-            for (let i=currID; fixedList[i]; i++) {
+            let temp: Semester; 
+            for (let i=idx; fixedList[i]; i++) {
                 temp = fixedList[i];
-                temp.id = i;
+                //temp.semesterNum = i;
                 temp.semesterNum -= 1;
-                if (temp.semesterNum==0) {
+                if (temp.semesterNum===0) {
                     temp.year -= 1;
                     temp.semesterNum = semPer;
                 }
                 fixedList[i] = temp;
             }
-            idSet(thisID-1);
             //setSemList(fixedList);
         } else {
             idSet(-1);
             //setSemList(fixedList);
         }
+        setSemCount(semCount-1);
         setSemList(fixedList);
     }
 
@@ -92,7 +105,8 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     let newRow = 0;
 
 
-    //<Row>ID {currID}</Row>
+    //<Row>ID {semesterID}</Row>
+    //<Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
     return (
         <Card>
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
