@@ -57,7 +57,6 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     function deleteSem () {
-        //TODO: No, bad, fix this. No changing IDs, you lazy bean!
         idSet(lastID+1);
         const fixedList: Semester[] = [...semList];
         //const toDelete: Semester = {id: currID, semesterNum: currentSem, year: currYear};
@@ -107,12 +106,12 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
 
 
     //<Row>ID {semesterID}</Row>
+    //<Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
     return (
         <Card>
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
             <table>
                 <thead><tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr></thead>
-                <Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
                 { subjectList.map((sbj: Subject) => {
                     {newRow++;} // Track what row it is on
                     return (
