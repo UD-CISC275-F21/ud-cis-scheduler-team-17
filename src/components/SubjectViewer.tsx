@@ -4,15 +4,17 @@ import {Subject} from "../interfaces/subject";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { Semester } from "../interfaces/semester";
 
-export function SubjectTable({currID, currentSem, currYear, semList, setSemList, semCounter, idSet, semPer}:{
+export function SubjectTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount}:{
     currID: number,
     currentSem: number,
     currYear: number,
     semList: Semester[],
     setSemList: (semList: Semester[]) => void,
-    semCounter: number,
+    lastID: number,
     idSet: (num: number) => void,
-    semPer: number
+    semPer: number,
+    semCount: number,
+    setSemCount: (num: number) => void
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
@@ -55,35 +57,35 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     function deleteSem () {
-        //TODO: No, bad, fix this. No changing indexes, you lazy bean!
-        //idSet(thisID+1);
+        //TODO: No, bad, fix this. No changing IDs, you lazy bean!
+        idSet(lastID+1);
         const fixedList: Semester[] = [...semList];
-        const toDelete: Semester = {id: currID, semesterNum: currentSem, year: currYear};
-        const idx = fixedList.indexOf(toDelete);
-        if (idx===-1) {
+        //const toDelete: Semester = {id: currID, semesterNum: currentSem, year: currYear};
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        /*if (idx===-1) {
             alert("element not found");
-        }
+        }*/
         fixedList.splice(idx, 1);
         //const idx = fixedList.indexOf(this);
         //fixedList.splice(currID, 1);
-        /*if (fixedList[0]) {
+        if (fixedList[0]) {
             let temp: Semester; 
-            for (let i=currID; fixedList[i]; i++) {
+            for (let i=idx; fixedList[i]; i++) {
                 temp = fixedList[i];
-                temp.id = i;
+                //temp.semesterNum = i;
                 temp.semesterNum -= 1;
-                if (temp.semesterNum==0) {
+                if (temp.semesterNum===0) {
                     temp.year -= 1;
                     temp.semesterNum = semPer;
                 }
                 fixedList[i] = temp;
             }
-            idSet(thisID-1);
             //setSemList(fixedList);
         } else {
             idSet(-1);
             //setSemList(fixedList);
-        }*/
+        }
+        setSemCount(semCount-1);
         setSemList(fixedList);
     }
 

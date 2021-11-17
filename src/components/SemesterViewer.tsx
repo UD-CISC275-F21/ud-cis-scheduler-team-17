@@ -1,4 +1,4 @@
-import { Row, Button, Card } from "react-bootstrap";
+import { Row, Button} from "react-bootstrap";
 import React from "react";
 import { SubjectTable } from "./SubjectViewer";
 import { Semester } from "../interfaces/semester";
@@ -90,7 +90,7 @@ export function SemesterTable() : JSX.Element {
                 <table>
                     { allSemesters.map((sem: Semester) => {
                         return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} semCounter={semesterCounter} idSet={setID} semPer={semestersPerYear}></SubjectTable></td>
+                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} semCount={semesterCounter} setSemCount={setSemesterCounter}></SubjectTable></td>
                         </tr>;
                     })}
                 </table>
