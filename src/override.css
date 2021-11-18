@@ -1,0 +1,23 @@
+.btn {
+    background-color: darkslategray;
+    border-color: gold;
+}
+
+/*.btn-del-course {
+    background-color: red;
+}*/
+/*.btn-primary {
+    padding: 0rem 0rem;
+}*/
+
+.btn-delete {
+    background-color: rgb(255, 98, 98);
+}
+
+.btn-add {
+    background-color: rgb(61, 189, 78);
+}
+
+/*a.btn:hover {
+    background: #383;
+}*/
