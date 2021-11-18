@@ -3,6 +3,7 @@ import React from "react";
 //import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./override.css";
 import { SemesterTable } from "./components/SemesterViewer";
 import { Container } from "react-bootstrap";
 
@@ -34,9 +35,14 @@ function App(): JSX.Element {
     //TODO: Welcome screen
 
     return (
-        <Container>
-            <SemesterTable></SemesterTable>
-        </Container>
+        <>
+            <div className="text-center">
+                <h1>UDel CISC Degree Planner</h1>
+            </div>
+            <Container>
+                <SemesterTable></SemesterTable>
+            </Container>
+        </>
     );
 }
 export default App;
