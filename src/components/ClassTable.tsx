@@ -112,7 +112,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         tempList[editRow-1].name = editName;
         tempList[editRow-1].credits = editCredits;
         classList = tempList;
-        alert("Submitted!");
         setEditRow(0);
     }
 
