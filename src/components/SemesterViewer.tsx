@@ -24,7 +24,8 @@ export function SemesterTable() : JSX.Element {
     //setSemester(currentSemester); // This exists solely to appease the linter.
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
-    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1}]);
+    const defaultClasses = [{id: "CISC", name: "Class Name", credits: 3, key: 1},{id: "CISC", name: "Class Name", credits: 3, key: 2},{id: "CISC", name: "Class Name", credits: 3, key: 3},{id: "CISC", name: "Class Name", credits: 3, key: 4},{id: "CISC", name: "Class Name", credits: 3, key: 5}];
+    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1, classes: defaultClasses}]);
     
     const [semesterCounter, setSemesterCounter] = useState<number>(0);
 
@@ -50,7 +51,7 @@ export function SemesterTable() : JSX.Element {
 
         //setSemester(tempsem);
         setID(tempid);
-        const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear};
+        const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear, classes: defaultClasses};
         //temp.semester = currentSemester;
         const sems: Semester[] = [...allSemesters, temp];
         //sems.push(temp);
@@ -101,7 +102,7 @@ export function SemesterTable() : JSX.Element {
                 <table>
                     { allSemesters.map((sem: Semester) => {
                         return <tr key={sem.id}>
-                            <td><ClassTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} semCount={semesterCounter} setSemCount={setSemesterCounter}></ClassTable></td>
+                            <td><ClassTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} semCount={semesterCounter} setSemCount={setSemesterCounter} classList={sem.classes}></ClassTable></td>
                         </tr>;
                     })}
                 </table>

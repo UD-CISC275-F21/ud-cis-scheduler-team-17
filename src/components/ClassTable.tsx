@@ -4,7 +4,7 @@ import {Class} from "../interfaces/class";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { Semester } from "../interfaces/semester";
 
-export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount}:{
+export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount, classList}:{
     currID: number,
     currentSem: number,
     currYear: number,
@@ -15,11 +15,11 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     semPer: number,
     semCount: number,
     setSemCount: (num: number) => void
+    classList: Class[];
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
     const [currentKey, setKey] = useState<number>(5);
-    const [classList, setClassList] = useState<Class[]> ([{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4},{id: currentId, name: courseName, credits: 3, key: 5}]);
 
     const [editRow, setEditRow] = useState<number>(0);
     const [editId, setEditId] = useState<string>("");
@@ -40,7 +40,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         const temp: Class = {id: currentId, name: courseName, credits: 3, key: tempKey};
         const newClasses: Class[] = [...classList, temp];
         //sub.push(temp);
-        setClassList(newClasses);
+        classList = newClasses;
         // Need to fix key generation
     }
 
@@ -48,12 +48,12 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         setKey(currentKey - 1);
         const newClasses: Class[] = [...classList];
         newClasses.pop();
-        setClassList(newClasses);
+        classList = newClasses;
     }
 
     function clearCourse () {
         setKey(0);
-        setClassList([{id: currentId, name: courseName, credits: 3, key: 0}]);
+        classList = [{id: currentId, name: courseName, credits: 3, key: 0}];
     }
 
     function deleteSem () {
@@ -97,7 +97,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         tempList[editRow-1].id = editId;
         tempList[editRow-1].name = editName;
         tempList[editRow-1].credits = editCredits;
-        setClassList(tempList);
+        classList = tempList;
         alert("Submitted!");
         setEditRow(0);
     }
