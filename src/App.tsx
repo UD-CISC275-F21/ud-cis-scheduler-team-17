@@ -5,7 +5,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./override.css";
 import { SemesterTable } from "./components/SemesterViewer";
-import { Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 /*function App(): JSX.Element {
 
