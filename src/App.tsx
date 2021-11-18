@@ -37,7 +37,7 @@ function App(): JSX.Element {
     return (
         <>
             <div className="text-center">
-                <h1>UDel CISC Degree Planner</h1>
+                <h1 style={{fontFamily: "Courier New"}}><strong>UDel CISC Degree Planner</strong></h1>
             </div>
             <Container>
                 <SemesterTable></SemesterTable>
