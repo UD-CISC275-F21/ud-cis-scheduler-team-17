@@ -19,7 +19,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
-    const [currentKey, setKey] = useState<number>(5);
+    const [currentKey, setKey] = useState<number>(6);
 
     const [editRow, setEditRow] = useState<number>(0);
     const [editId, setEditId] = useState<string>("");
@@ -40,20 +40,34 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         const temp: Class = {id: currentId, name: courseName, credits: 3, key: tempKey};
         const newClasses: Class[] = [...classList, temp];
         //sub.push(temp);
-        classList = newClasses;
+        //classList = newClasses;
         // Need to fix key generation
+        classList = [...newClasses];
+        const fixedList: Semester[] = [...semList];
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        fixedList[idx].classes = classList;
+        setSemList(fixedList);
     }
 
     function deleteCourse () {
-        setKey(currentKey - 1);
+        setKey(currentKey + 1);
         const newClasses: Class[] = [...classList];
         newClasses.pop();
-        classList = newClasses;
+        classList = [...newClasses];
+        const fixedList: Semester[] = [...semList];
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        fixedList[idx].classes = classList;
+        setSemList(fixedList);
     }
 
     function clearCourse () {
         setKey(0);
-        classList = [{id: currentId, name: courseName, credits: 3, key: 0}];
+        //classList = [{id: currentId, name: courseName, credits: 3, key: 0}];
+        classList = [];
+        const fixedList: Semester[] = [...semList];
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        fixedList[idx].classes = classList;
+        setSemList(fixedList);
     }
 
     function deleteSem () {
