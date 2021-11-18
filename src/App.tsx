@@ -36,6 +36,9 @@ function App(): JSX.Element {
 
     return (
         <>
+            <div className="text-center">
+                <h1>UDel CISC Degree Planner</h1>
+            </div>
             <Container>
                 <SemesterTable></SemesterTable>
             </Container>

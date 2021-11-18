@@ -166,7 +166,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             </table>
             <Row>
                 <Col><Button className="m-2" data-testid="add-course-button"onClick={addCourse}>Add Course</Button></Col>
-                <Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteCourse}>Delete Course</Button></Col>
+                <Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteCourse}><div className="btn-del-course">Delete Course</div></Button></Col>
                 <Col><Button className="m-2" data-testid="clear-courses-button" onClick={clearCourse}>Clear Courses</Button></Col>
                 <Col><Button className="m-2" data-testid="delete-this-semester-button" onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
@@ -174,4 +174,4 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     );
     //Table setup credit to Dr. Bart
 }
-//<div className="btn btn-del-course">
+//<div className="btn-del-course">
