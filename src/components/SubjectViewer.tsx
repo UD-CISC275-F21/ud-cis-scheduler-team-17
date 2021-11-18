@@ -14,8 +14,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     idSet: (num: number) => void,
     semPer: number,
     semCount: number,
-    setSemCount: (num: number) => void
-}) : JSX.Element {
+    setSemCount: (num: number) => void}) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
     const [currentKey, setKey] = useState<number>(5);
@@ -44,11 +43,16 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         // Need to fix key generation
     }
 
-    function deleteCourse () {
+    function deleteLastCourse () {
         setKey(currentKey - 1);
         const sub: Subject[] = [...subjectList];
         sub.pop();
         setSub(sub);
+    }
+
+    function deleteCourse (currentKey: number) {
+        const newSem = subjectList.filter((sbj) => sbj.key !== currentKey);
+        setSub(newSem); 
     }
 
     function clearCourse () {
@@ -160,13 +164,14 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
                                 <td><Button onClick={() => editSem(sbj.key)}>Edit</Button></td>
+                                <td><Button onClick={() => deleteCourse(sbj.key)}>Delete</Button></td>
                             </tr>
                     );
                 })}
             </table>
             <Row>
                 <Col><Button data-testid="add-course-button"onClick={addCourse}>Add Course</Button></Col>
-                <Col><Button data-testid="delete-last-course-button"onClick = {deleteCourse}>Delete Course</Button></Col>
+                <Col><Button data-testid="delete-last-course-button"onClick = {deleteLastCourse}>Delete Course</Button></Col>
                 <Col><Button data-testid="clear-courses-button" onClick={clearCourse}>Clear Courses</Button></Col>
                 <Col><Button data-testid="delete-this-semester-button" onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
