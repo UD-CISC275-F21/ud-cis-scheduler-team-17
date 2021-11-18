@@ -3,8 +3,9 @@ import React from "react";
 //import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./override.css";
 import { SemesterTable } from "./components/SemesterViewer";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 /*function App(): JSX.Element {
 
@@ -34,9 +35,11 @@ function App(): JSX.Element {
     //TODO: Welcome screen
 
     return (
-        <Container>
-            <SemesterTable></SemesterTable>
-        </Container>
+        <>
+            <Container>
+                <SemesterTable></SemesterTable>
+            </Container>
+        </>
     );
 }
 export default App;
