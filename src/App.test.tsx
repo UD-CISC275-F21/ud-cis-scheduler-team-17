@@ -82,5 +82,11 @@ describe("App", () => {
     });
 
     //TODO: Test clear all courses button
+    it("clears all courses in a semester when Clear Courses button is clicked", async () => {
+        const clearCoursesButton = screen.getByTestId("clear-courses-button");
+        clearCoursesButton.click();
+        const newCourses = screen.queryAllByText(/CISC/);
+        expect(newCourses.length).toEqual(0)
+    });
     //TODO: Test edit buttons
 });
