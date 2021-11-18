@@ -85,7 +85,7 @@ export function SemesterTable() : JSX.Element {
 
     return (
         <>
-            <Row><Button data-testid="add-semester-button" onClick={addSemester} className="m-3">Add Semester</Button></Row>
+            <Row><Button data-testid="add-semester-button" onClick={addSemester} className="btn btn-add m-3" style={{fontFamily: "Courier New"}}>Add Semester</Button></Row>
             <Row>
                 <table>
                     { allSemesters.map((sem: Semester) => {
@@ -95,8 +95,8 @@ export function SemesterTable() : JSX.Element {
                     })}
                 </table>
             </Row>
-            <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="m-3">Delete Last Semester</Button>
-            <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="m-3">Clear All Semesters</Button>
+            <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Delete Last Semester</Button>
+            <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
