@@ -25,7 +25,7 @@ export function SemesterTable() : JSX.Element {
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
     const defaultClasses = [{id: "CISC", name: "Class Name", credits: 3, key: 1},{id: "CISC", name: "Class Name", credits: 3, key: 2},{id: "CISC", name: "Class Name", credits: 3, key: 3},{id: "CISC", name: "Class Name", credits: 3, key: 4},{id: "CISC", name: "Class Name", credits: 3, key: 5}];
-    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1, classes: defaultClasses}]);
+    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:0, semesterNum: 1, year: 1, classes: [{id: "CISC", name: "Class Name", credits: 3, key: 1},{id: "CISC", name: "Class Name", credits: 3, key: 2},{id: "CISC", name: "Class Name", credits: 3, key: 3},{id: "CISC", name: "Class Name", credits: 3, key: 4},{id: "CISC", name: "Class Name", credits: 3, key: 5}]}]);
     
     const [semesterCounter, setSemesterCounter] = useState<number>(0);
 
@@ -51,7 +51,7 @@ export function SemesterTable() : JSX.Element {
 
         //setSemester(tempsem);
         setID(tempid);
-        const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear, classes: defaultClasses};
+        const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear, classes: [...defaultClasses]};
         //temp.semester = currentSemester;
         const sems: Semester[] = [...allSemesters, temp];
         //sems.push(temp);

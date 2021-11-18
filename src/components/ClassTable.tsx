@@ -19,7 +19,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
-    const [currentKey, setKey] = useState<number>(6);
+    const [currentKey, setKey] = useState<number>(5);
 
     const [editRow, setEditRow] = useState<number>(0);
     const [editId, setEditId] = useState<string>("");
@@ -124,6 +124,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     return (
         <Card>
             <Row><strong>Semester {currentSem} Year {currYear}</strong></Row>
+            <Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
             <table>
                 <thead><tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr></thead>
                 { classList.map((sbj: Class) => {
