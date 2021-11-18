@@ -82,4 +82,5 @@ describe("App", () => {
     });
 
     //TODO: Test clear all courses button
+    //TODO: Test edit buttons
 });
