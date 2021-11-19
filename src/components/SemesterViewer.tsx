@@ -4,7 +4,6 @@ import { ClassTable } from "./ClassTable";
 import { Semester } from "../interfaces/semester";
 import { useState } from "react";
 //import { Upload } from "./Upload";
-import { Upload } from "./Upload";
 
 /*
 I think for this it should return a card and several subject components (which will need to be made for ease of adding classes).
@@ -27,9 +26,26 @@ export function SemesterTable() : JSX.Element {
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
     const defaultClasses = [{id: "CISC", name: "Class Name", credits: 3, key: 1},{id: "CISC", name: "Class Name", credits: 3, key: 2},{id: "CISC", name: "Class Name", credits: 3, key: 3},{id: "CISC", name: "Class Name", credits: 3, key: 4},{id: "CISC", name: "Class Name", credits: 3, key: 5}];
-    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1, classes: defaultClasses}]);
     
     const [semesterCounter, setSemesterCounter] = useState<number>(0);
+
+
+
+    const LOCAL_STORAGE_SEMESTERS = "schedule";
+    const INITIAL_SEMESTERS: Semester[] = [
+        {id:currentID, semesterNum: 1, year: 1, classes: defaultClasses}
+    ];
+
+    function getLocalStorageSemesters(): Semester[] {
+        const rawSemesters: string|null = localStorage.getItem(LOCAL_STORAGE_SEMESTERS);
+        if (rawSemesters === null) {
+            return [...INITIAL_SEMESTERS];
+        } else {
+            return JSON.parse(rawSemesters);
+        }
+    }
+
+    const [allSemesters, changeSemesters] = useState<Semester[]>(getLocalStorageSemesters);
 
     function addSemester() {
         const tempSemCounter = semesterCounter+1;
@@ -83,6 +99,7 @@ export function SemesterTable() : JSX.Element {
     }
 
     // Credit to https://stackoverflow.com/questions/66801478/write-to-a-text-or-json-file-react-node for the JSON saving function
+    /*
     function saveToJSON() {
         const fileData = JSON.stringify(allSemesters);
         const blob = new Blob([fileData], {type: "text/plain"});
@@ -91,6 +108,11 @@ export function SemesterTable() : JSX.Element {
         link.download = "filename.json";
         link.href = url;
         link.click();
+    }
+    */
+
+    function saveToLocal() {
+        localStorage.setItem(LOCAL_STORAGE_SEMESTERS, JSON.stringify(allSemesters));
     }
 
     /*const tempSems: TableFace[] = semesters;
@@ -111,10 +133,11 @@ export function SemesterTable() : JSX.Element {
             </Row>
             <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Delete Last Semester</Button>
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
-            <Button data-testid="save-to-json-button" onClick={saveToJSON} className="m-3">Save</Button>
-            <Button data-testid="load-from-json-button" onClick={Upload} className="m-3">Load</Button>
+            <Button data-testid="save-to-local-button" onClick={saveToLocal} className="btn btn-save m-3">Save Layout</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
+        //<Button data-testid="save-to-json-button" onClick={saveToJSON} className="m-3">Save</Button>
+        //<Button data-testid="load-from-json-button" onClick={Upload} className="m-3">Load</Button>
     );
 }
 
