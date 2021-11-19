@@ -49,11 +49,20 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         setSemList(fixedList);
     }
 
-    function deleteCourse () {
+    function deleteLastCourse () {
         setKey(currentKey + 1);
         const newClasses: Class[] = [...classList];
         newClasses.pop();
         classList = [...newClasses];
+        const fixedList: Semester[] = [...semList];
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        fixedList[idx].classes = classList;
+        setSemList(fixedList);
+    }
+
+    function deleteCourse (currentKey: number) {
+        const newSem = classList.filter((sbj) => sbj.key !== currentKey);
+        classList = newSem; 
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
         fixedList[idx].classes = classList;
@@ -173,13 +182,14 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
                                 <td><Button className="m-1" onClick={() => editSem(sbj.key)}>Edit</Button></td>
+                                <td><Button className="m-1" onClick={() => deleteCourse(sbj.key)}>Delete</Button></td>
                             </tr>
                     );
                 })}
             </table>
             <Row>
                 <Col><Button className="m-2" data-testid="add-course-button"onClick={addCourse}>Add Course</Button></Col>
-                <Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteCourse}><div className="btn-del-course">Delete Course</div></Button></Col>
+                <Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteLastCourse}><div className="btn-del-course">Delete Course</div></Button></Col>
                 <Col><Button className="m-2" data-testid="clear-courses-button" onClick={clearCourse}>Clear Courses</Button></Col>
                 <Col><Button className="m-2" data-testid="delete-this-semester-button" onClick={deleteSem}>Delete This Semester</Button></Col>
             </Row>
