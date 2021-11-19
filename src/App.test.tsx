@@ -86,7 +86,7 @@ describe("App", () => {
         const clearCoursesButton = screen.getByTestId("clear-courses-button");
         clearCoursesButton.click();
         const newCourses = screen.queryAllByText(/CISC/);
-        expect(newCourses.length).toEqual(0)
+        expect(newCourses.length).toEqual(0);
     });
     //TODO: Test edit buttons
     /*

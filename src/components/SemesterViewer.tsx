@@ -3,7 +3,8 @@ import React from "react";
 import { ClassTable } from "./ClassTable";
 import { Semester } from "../interfaces/semester";
 import { useState } from "react";
-import { Upload } from "./upload";
+//import { Upload } from "./Upload";
+import { Upload } from "./Upload";
 
 /*
 I think for this it should return a card and several subject components (which will need to be made for ease of adding classes).
