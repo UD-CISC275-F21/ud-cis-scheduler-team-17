@@ -3,6 +3,7 @@ import React from "react";
 import { ClassTable } from "./ClassTable";
 import { Semester } from "../interfaces/semester";
 import { useState } from "react";
+import { Upload } from "./upload";
 
 /*
 I think for this it should return a card and several subject components (which will need to be made for ease of adding classes).
@@ -110,6 +111,7 @@ export function SemesterTable() : JSX.Element {
             <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Delete Last Semester</Button>
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
             <Button data-testid="save-to-json-button" onClick={saveToJSON} className="m-3">Save</Button>
+            <Button data-testid="load-from-json-button" onClick={Upload} className="m-3">Load</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
