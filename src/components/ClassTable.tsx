@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import {Subject} from "../interfaces/subject";
+import {Class} from "../interfaces/class";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { Semester } from "../interfaces/semester";
 
-export function SubjectTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount}:{
+export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount, classList}:{
     currID: number,
     currentSem: number,
     currYear: number,
@@ -15,11 +15,11 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     semPer: number,
     semCount: number,
     setSemCount: (num: number) => void
+    classList: Class[];
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
-    const [currentKey, setKey] = useState<number>(5);
-    const [subjectList, setSub] = useState<Subject[]> ([{id: currentId, name: courseName, credits: 3, key: 1},{id: currentId, name: courseName, credits: 3, key: 2},{id: currentId, name: courseName, credits: 3, key: 3},{id: currentId, name: courseName, credits: 3, key: 4},{id: currentId, name: courseName, credits: 3, key: 5}]);
+    const [currentKey, setKey] = useState<number>(6);
 
     const [editRow, setEditRow] = useState<number>(0);
     const [editId, setEditId] = useState<string>("");
@@ -37,23 +37,37 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
         setKey(tempKey);
         setId(currentId);
         setcourseName(courseName);
-        const temp: Subject = {id: currentId, name: courseName, credits: 3, key: tempKey};
-        const sub: Subject[] = [...subjectList, temp];
+        const temp: Class = {id: currentId, name: courseName, credits: 3, key: tempKey};
+        const newClasses: Class[] = [...classList, temp];
         //sub.push(temp);
-        setSub(sub);
+        //classList = newClasses;
         // Need to fix key generation
+        classList = [...newClasses];
+        const fixedList: Semester[] = [...semList];
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        fixedList[idx].classes = classList;
+        setSemList(fixedList);
     }
 
     function deleteCourse () {
-        setKey(currentKey - 1);
-        const sub: Subject[] = [...subjectList];
-        sub.pop();
-        setSub(sub);
+        setKey(currentKey + 1);
+        const newClasses: Class[] = [...classList];
+        newClasses.pop();
+        classList = [...newClasses];
+        const fixedList: Semester[] = [...semList];
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        fixedList[idx].classes = classList;
+        setSemList(fixedList);
     }
 
     function clearCourse () {
         setKey(0);
-        setSub([{id: currentId, name: courseName, credits: 3, key: 0}]);
+        //classList = [{id: currentId, name: courseName, credits: 3, key: 0}];
+        classList = [];
+        const fixedList: Semester[] = [...semList];
+        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        fixedList[idx].classes = classList;
+        setSemList(fixedList);
     }
 
     function deleteSem () {
@@ -93,12 +107,11 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
     }
 
     function submitSem () {
-        const tempList = subjectList;
+        const tempList = classList;
         tempList[editRow-1].id = editId;
         tempList[editRow-1].name = editName;
         tempList[editRow-1].credits = editCredits;
-        setSub(tempList);
-        alert("Submitted!");
+        classList = tempList;
         setEditRow(0);
     }
 
@@ -112,7 +125,7 @@ export function SubjectTable({currID, currentSem, currYear, semList, setSemList,
             <Row><p className="text-center"><strong>Semester {currentSem} Year {currYear}</strong></p></Row>
             <table>
                 <thead><tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr></thead>
-                { subjectList.map((sbj: Subject) => {
+                { classList.map((sbj: Class) => {
                     {newRow++;} // Track what row it is on
                     return (
                         editRow == newRow ? // If the current row was set to be edited, do this

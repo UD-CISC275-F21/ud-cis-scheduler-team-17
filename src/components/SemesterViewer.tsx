@@ -1,8 +1,10 @@
 import { Row, Button} from "react-bootstrap";
 import React from "react";
-import { SubjectTable } from "./SubjectViewer";
+import { ClassTable } from "./ClassTable";
 import { Semester } from "../interfaces/semester";
 import { useState } from "react";
+//import { Upload } from "./Upload";
+import { Upload } from "./Upload";
 
 /*
 I think for this it should return a card and several subject components (which will need to be made for ease of adding classes).
@@ -24,7 +26,8 @@ export function SemesterTable() : JSX.Element {
     //setSemester(currentSemester); // This exists solely to appease the linter.
     //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
     //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
-    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1}]);
+    const defaultClasses = [{id: "CISC", name: "Class Name", credits: 3, key: 1},{id: "CISC", name: "Class Name", credits: 3, key: 2},{id: "CISC", name: "Class Name", credits: 3, key: 3},{id: "CISC", name: "Class Name", credits: 3, key: 4},{id: "CISC", name: "Class Name", credits: 3, key: 5}];
+    const [allSemesters, changeSemesters] = useState<Semester[]>([{id:currentID, semesterNum: 1, year: 1, classes: defaultClasses}]);
     
     const [semesterCounter, setSemesterCounter] = useState<number>(0);
 
@@ -50,7 +53,7 @@ export function SemesterTable() : JSX.Element {
 
         //setSemester(tempsem);
         setID(tempid);
-        const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear};
+        const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear, classes: defaultClasses};
         //temp.semester = currentSemester;
         const sems: Semester[] = [...allSemesters, temp];
         //sems.push(temp);
@@ -79,6 +82,17 @@ export function SemesterTable() : JSX.Element {
         //addSemester();
     }
 
+    // Credit to https://stackoverflow.com/questions/66801478/write-to-a-text-or-json-file-react-node for the JSON saving function
+    function saveToJSON() {
+        const fileData = JSON.stringify(allSemesters);
+        const blob = new Blob([fileData], {type: "text/plain"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = "filename.json";
+        link.href = url;
+        link.click();
+    }
+
     /*const tempSems: TableFace[] = semesters;
     tempSems.push({semester: currentSemester});
     addSem(tempSems);*/
@@ -90,13 +104,15 @@ export function SemesterTable() : JSX.Element {
                 <table>
                     { allSemesters.map((sem: Semester) => {
                         return <tr key={sem.id}>
-                            <td><SubjectTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} semCount={semesterCounter} setSemCount={setSemesterCounter}></SubjectTable></td>
+                            <td><ClassTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} semCount={semesterCounter} setSemCount={setSemesterCounter} classList={sem.classes}></ClassTable></td>
                         </tr>;
                     })}
                 </table>
             </Row>
             <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Delete Last Semester</Button>
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
+            <Button data-testid="save-to-json-button" onClick={saveToJSON} className="m-3">Save</Button>
+            <Button data-testid="load-from-json-button" onClick={Upload} className="m-3">Load</Button>
         </>
         //<SubjectTable currentSem={currentSemester}></SubjectTable>
     );
