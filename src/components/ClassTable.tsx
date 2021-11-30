@@ -74,18 +74,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
         fixedList.splice(idx, 1);
-        /*if (fixedList[0]) {
-            let temp: Semester; 
-            for (let i=idx; fixedList[i]; i++) {
-                temp = fixedList[i];
-                temp.semesterNum -= 1;
-                if (temp.semesterNum===0) {
-                    temp.year -= 1;
-                    temp.semesterNum = semPer;
-                }
-                fixedList[i] = temp;
-            }
-        }*/
         for (let i=0, temp:Semester; fixedList[i]; i++) {
             temp = fixedList[i];
             temp.semesterNum = (i%semPer)+1;
