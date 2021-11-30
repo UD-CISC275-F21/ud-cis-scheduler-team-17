@@ -11,7 +11,8 @@ export function SemesterTable() : JSX.Element {
     const [semesterCounter, setSemesterCounter] = useState<number>(0);
     const LOCAL_STORAGE_SEMESTERS = "schedule";
     const INITIAL_SEMESTERS: Semester[] = [
-        {id:currentID, semesterNum: 1, year: 1, classes: defaultClasses}
+        {id:currentID, semesterNum: 1, year: 1, classes: [{courseID: "CISC", name: "Class Name", credits: 3, key: 1},{courseID: "CISC", name: "Class Name", credits: 3, key: 2},{courseID: "CISC", name: "Class Name", credits: 3, key: 3},{courseID: "CISC", name: "Class Name", credits: 3, key: 4},{courseID: "CISC", name: "Class Name", credits: 3, key: 5}]}
+        //The list of classes is important because it gets rid of the issue where the first two semesters' classes function as the same entity.
     ];
 
     function getLocalStorageSemesters(): Semester[] {

@@ -52,10 +52,9 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     }
 
     function deleteCourse (currentKey: number) {
-        const newSem = classList.filter((sbj) => sbj.key !== currentKey);
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
-        fixedList[idx].classes = [...newSem];
+        fixedList[idx].classes = classList.filter((sbj) => sbj.key !== currentKey);
         setSemList(fixedList);
     }
 
@@ -70,9 +69,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function deleteSem () {
         idSet(lastID+1);
-        const fixedList: Semester[] = [...semList];
-        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
-        fixedList.splice(idx, 1);
+        const fixedList = semList.filter((semFilter) => semFilter.id!==currID);
         for (let i=0, temp:Semester; fixedList[i]; i++) {
             temp = fixedList[i];
             temp.semesterNum = (i%semPer)+1;
