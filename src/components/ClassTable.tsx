@@ -4,7 +4,7 @@ import {Class} from "../interfaces/class";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { Semester } from "../interfaces/semester";
 
-export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount, classList}:{
+export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, setSemCount, classList}:{
     currID: number,
     currentSem: number,
     currYear: number,
@@ -13,7 +13,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     lastID: number,
     idSet: (num: number) => void,
     semPer: number,
-    semCount: number,
     setSemCount: (num: number) => void
     classList: Class[];
 }) : JSX.Element {
@@ -75,7 +74,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
         fixedList.splice(idx, 1);
-        if (fixedList[0]) {
+        /*if (fixedList[0]) {
             let temp: Semester; 
             for (let i=idx; fixedList[i]; i++) {
                 temp = fixedList[i];
@@ -86,10 +85,13 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                 }
                 fixedList[i] = temp;
             }
-        } else {
-            idSet(-1);
+        }*/
+        for (let i=0, temp:Semester; fixedList[i]; i++) {
+            temp = fixedList[i];
+            temp.semesterNum = (i%semPer)+1;
+            temp.year = Math.trunc(i/semPer)+1;
         }
-        setSemCount(semCount-1);
+        setSemCount(fixedList.length-1);
         setSemList(fixedList);
     }
 

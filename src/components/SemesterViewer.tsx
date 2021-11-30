@@ -82,7 +82,7 @@ export function SemesterTable() : JSX.Element {
                 <table>
                     { allSemesters.map((sem: Semester) => {
                         return <tr key={sem.id}>
-                            <td><ClassTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} semCount={semesterCounter} setSemCount={setSemesterCounter} classList={sem.classes}></ClassTable></td>
+                            <td><ClassTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} setSemCount={setSemesterCounter} classList={sem.classes}></ClassTable></td>
                         </tr>;
                     })}
                 </table>
