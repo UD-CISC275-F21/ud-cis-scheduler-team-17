@@ -53,10 +53,9 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function deleteCourse (currentKey: number) {
         const newSem = classList.filter((sbj) => sbj.key !== currentKey);
-        classList = newSem; 
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
-        fixedList[idx].classes = classList;
+        fixedList[idx].classes = [...newSem];
         setSemList(fixedList);
     }
 
