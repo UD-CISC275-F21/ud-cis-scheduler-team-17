@@ -26,12 +26,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     const [editName, setEditName] = useState<string>("");
     const [editCredits, setEditCredits] = useState<number>(0);
 
-    //const semesterID = currID.valueOf();
-    //const currentSemesterNumber = currentSem.valueOf();
-    //const currentSemesterYear = currYear.valueOf();
-    //const currentSemesterNumber = currentSem;
-    //const currentSemesterYear = currYear;
-
     function addCourse () {
         const tempKey = currentKey + 1;
         setKey(tempKey);
@@ -39,8 +33,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         setcourseName(courseName);
         const temp: Class = {id: currentId, name: courseName, credits: 3, key: tempKey};
         const newClasses: Class[] = [...classList, temp];
-        //sub.push(temp);
-        //classList = newClasses;
         // Need to fix key generation
         classList = [...newClasses];
         const fixedList: Semester[] = [...semList];
@@ -71,7 +63,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function clearCourse () {
         setKey(0);
-        //classList = [{id: currentId, name: courseName, credits: 3, key: 0}];
         classList = [];
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
@@ -82,19 +73,12 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     function deleteSem () {
         idSet(lastID+1);
         const fixedList: Semester[] = [...semList];
-        //const toDelete: Semester = {id: currID, semesterNum: currentSem, year: currYear};
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
-        /*if (idx===-1) {
-            alert("element not found");
-        }*/
         fixedList.splice(idx, 1);
-        //const idx = fixedList.indexOf(this);
-        //fixedList.splice(currID, 1);
         if (fixedList[0]) {
             let temp: Semester; 
             for (let i=idx; fixedList[i]; i++) {
                 temp = fixedList[i];
-                //temp.semesterNum = i;
                 temp.semesterNum -= 1;
                 if (temp.semesterNum===0) {
                     temp.year -= 1;
@@ -102,10 +86,8 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                 }
                 fixedList[i] = temp;
             }
-            //setSemList(fixedList);
         } else {
             idSet(-1);
-            //setSemList(fixedList);
         }
         setSemCount(semCount-1);
         setSemList(fixedList);
@@ -126,7 +108,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     let newRow = 0;
 
-
+    // THE BELOW COMMENTS ARE FOR DEVELOPMENTAL TESTING
     //<Row>ID {semesterID}</Row>
     //<Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
     return (
@@ -197,4 +179,3 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     );
     //Table setup credit to Dr. Bart
 }
-//<div className="btn-del-course">

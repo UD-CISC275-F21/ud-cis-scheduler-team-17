@@ -81,7 +81,6 @@ describe("App", () => {
         expect(deletedSemesterList.length).toEqual(initialSemesterList.length-1);
     });
 
-    //TODO: Test clear all courses button
     it("clears all courses in a semester when Clear Courses button is clicked", async () => {
         const clearCoursesButton = screen.getByTestId("clear-courses-button");
         clearCoursesButton.click();

@@ -13,24 +13,10 @@ It should have the buttons to add courses.
 */
 
 export function SemesterTable() : JSX.Element {
-    //const defaultID = 1;
-    //const [currentSemester, setSemester] = useState<number>(0);
-    //const [currentYear, setYear] = useState<number>(0);
     const [currentID, setID] = useState<number>(0);
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
-    //let newSemester: TableFace = 
-    /*const semesters: TableFace[] = [
-        {semester: 1}
-    ];*/
-    //setSemester(currentSemester); // This exists solely to appease the linter.
-    //const [semesters, setSem] = useState<TableFace[]>([{semester: currentSemester}]);
-    //const [semesters, setSem] = useState<TableFace[]>([{id: currentID, semester: currentSemester, year: currentYear}]);
     const defaultClasses = [{id: "CISC", name: "Class Name", credits: 3, key: 1},{id: "CISC", name: "Class Name", credits: 3, key: 2},{id: "CISC", name: "Class Name", credits: 3, key: 3},{id: "CISC", name: "Class Name", credits: 3, key: 4},{id: "CISC", name: "Class Name", credits: 3, key: 5}];
-    
     const [semesterCounter, setSemesterCounter] = useState<number>(0);
-
-
-
     const LOCAL_STORAGE_SEMESTERS = "schedule";
     const INITIAL_SEMESTERS: Semester[] = [
         {id:currentID, semesterNum: 1, year: 1, classes: defaultClasses}
@@ -51,28 +37,14 @@ export function SemesterTable() : JSX.Element {
         const tempSemCounter = semesterCounter+1;
         const tempid = currentID+1;
         let tempsem = (1+tempSemCounter)%semestersPerYear;
-        /*if (currentID===0) {
-            tempsem = 2;
-        }*/
-        //let tempyear = currentYear;
         const tempyear = Math.trunc(tempSemCounter/semestersPerYear)+1;
         if (tempsem===0) {
             tempsem+=semestersPerYear;
         }
-        /*if ((tempid%semestersPerYear)===0) {
-            /*if (currentID===0) {
-                tempyear -= 1;
-            }
-            tempyear += 1;
-            setYear(tempyear);
-        }*/
 
-        //setSemester(tempsem);
         setID(tempid);
         const temp: Semester = {id: tempid, semesterNum: tempsem, year: tempyear, classes: defaultClasses};
-        //temp.semester = currentSemester;
         const sems: Semester[] = [...allSemesters, temp];
-        //sems.push(temp);
         changeSemesters(sems);
         setSemesterCounter(tempSemCounter);
     }
@@ -83,19 +55,14 @@ export function SemesterTable() : JSX.Element {
         sems.pop();
         if (!sems[0]) {
             setID(-1);
-            //setYear(0);
-            //setSemester(0);
         }
         changeSemesters(sems);
     }
     
     function deleteAllSems() {
-        //setSemester(0);
-        //setYear(0);
         setID(-1);
         changeSemesters([]);
         setSemesterCounter(-1);
-        //addSemester();
     }
 
     // Credit to https://stackoverflow.com/questions/66801478/write-to-a-text-or-json-file-react-node for the JSON saving function
@@ -115,9 +82,6 @@ export function SemesterTable() : JSX.Element {
         localStorage.setItem(LOCAL_STORAGE_SEMESTERS, JSON.stringify(allSemesters));
     }
 
-    /*const tempSems: TableFace[] = semesters;
-    tempSems.push({semester: currentSemester});
-    addSem(tempSems);*/
 
     return (
         <>
@@ -135,7 +99,6 @@ export function SemesterTable() : JSX.Element {
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
             <Button data-testid="save-to-local-button" onClick={saveToLocal} className="btn btn-save m-3">Save Layout</Button>
         </>
-        //<SubjectTable currentSem={currentSemester}></SubjectTable>
         //<Button data-testid="save-to-json-button" onClick={saveToJSON} className="m-3">Save</Button>
         //<Button data-testid="load-from-json-button" onClick={Upload} className="m-3">Load</Button>
     );
