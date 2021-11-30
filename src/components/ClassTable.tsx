@@ -4,7 +4,7 @@ import {Class} from "../interfaces/class";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { Semester } from "../interfaces/semester";
 
-export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, semCount, setSemCount, classList}:{
+export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, setSemCount, classList}:{
     currID: number,
     currentSem: number,
     currYear: number,
@@ -13,7 +13,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     lastID: number,
     idSet: (num: number) => void,
     semPer: number,
-    semCount: number,
     setSemCount: (num: number) => void
     classList: Class[];
 }) : JSX.Element {
@@ -26,21 +25,13 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     const [editName, setEditName] = useState<string>("");
     const [editCredits, setEditCredits] = useState<number>(0);
 
-    //const semesterID = currID.valueOf();
-    //const currentSemesterNumber = currentSem.valueOf();
-    //const currentSemesterYear = currYear.valueOf();
-    //const currentSemesterNumber = currentSem;
-    //const currentSemesterYear = currYear;
-
     function addCourse () {
         const tempKey = currentKey + 1;
         setKey(tempKey);
         setId(currentId);
         setcourseName(courseName);
-        const temp: Class = {id: currentId, name: courseName, credits: 3, key: tempKey};
+        const temp: Class = {courseID: currentId, name: courseName, credits: 3, key: tempKey};
         const newClasses: Class[] = [...classList, temp];
-        //sub.push(temp);
-        //classList = newClasses;
         // Need to fix key generation
         classList = [...newClasses];
         const fixedList: Semester[] = [...semList];
@@ -61,17 +52,14 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     }
 
     function deleteCourse (currentKey: number) {
-        const newSem = classList.filter((sbj) => sbj.key !== currentKey);
-        classList = newSem; 
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
-        fixedList[idx].classes = classList;
+        fixedList[idx].classes = classList.filter((sbj) => sbj.key !== currentKey);
         setSemList(fixedList);
     }
 
     function clearCourse () {
         setKey(0);
-        //classList = [{id: currentId, name: courseName, credits: 3, key: 0}];
         classList = [];
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
@@ -81,33 +69,13 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function deleteSem () {
         idSet(lastID+1);
-        const fixedList: Semester[] = [...semList];
-        //const toDelete: Semester = {id: currID, semesterNum: currentSem, year: currYear};
-        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
-        /*if (idx===-1) {
-            alert("element not found");
-        }*/
-        fixedList.splice(idx, 1);
-        //const idx = fixedList.indexOf(this);
-        //fixedList.splice(currID, 1);
-        if (fixedList[0]) {
-            let temp: Semester; 
-            for (let i=idx; fixedList[i]; i++) {
-                temp = fixedList[i];
-                //temp.semesterNum = i;
-                temp.semesterNum -= 1;
-                if (temp.semesterNum===0) {
-                    temp.year -= 1;
-                    temp.semesterNum = semPer;
-                }
-                fixedList[i] = temp;
-            }
-            //setSemList(fixedList);
-        } else {
-            idSet(-1);
-            //setSemList(fixedList);
+        const fixedList = semList.filter((semFilter) => semFilter.id!==currID);
+        for (let i=0, temp:Semester; fixedList[i]; i++) {
+            temp = fixedList[i];
+            temp.semesterNum = (i%semPer)+1;
+            temp.year = Math.trunc(i/semPer)+1;
         }
-        setSemCount(semCount-1);
+        setSemCount(fixedList.length-1);
         setSemList(fixedList);
     }
 
@@ -117,7 +85,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function submitSem () {
         const tempList = classList;
-        tempList[editRow-1].id = editId;
+        tempList[editRow-1].courseID = editId;
         tempList[editRow-1].name = editName;
         tempList[editRow-1].credits = editCredits;
         classList = tempList;
@@ -126,7 +94,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     let newRow = 0;
 
-
+    // THE BELOW COMMENTS ARE FOR DEVELOPMENTAL TESTING
     //<Row>ID {semesterID}</Row>
     //<Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
     return (
@@ -147,7 +115,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                 <td>
                                     <InputGroup className="sbj-id">
                                         <FormControl
-                                            placeholder={sbj.id}
+                                            placeholder={sbj.courseID}
                                             aria-label="ID"
                                             aria-describedby="basic-addon1"
                                             onChange={(event) => setEditId(event.target.value)}
@@ -178,7 +146,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                             </tr>
                             : // otherwise do what it originally does
                             <tr key={sbj.key}> 
-                                <td>{sbj.id}</td>
+                                <td>{sbj.courseID}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
                                 <td><Button className="m-1" onClick={() => editSem(sbj.key)}>Edit</Button></td>
@@ -197,4 +165,3 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     );
     //Table setup credit to Dr. Bart
 }
-//<div className="btn-del-course">

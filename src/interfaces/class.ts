@@ -1,5 +1,5 @@
 export interface Class {
-    id: string 
+    courseID: string 
     name: string
     credits: number
     key: number
