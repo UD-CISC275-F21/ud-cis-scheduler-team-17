@@ -31,7 +31,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         setKey(tempKey);
         setId(currentId);
         setcourseName(courseName);
-        const temp: Class = {id: currentId, name: courseName, credits: 3, key: tempKey};
+        const temp: Class = {courseID: currentId, name: courseName, credits: 3, key: tempKey};
         const newClasses: Class[] = [...classList, temp];
         // Need to fix key generation
         classList = [...newClasses];
@@ -99,7 +99,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function submitSem () {
         const tempList = classList;
-        tempList[editRow-1].id = editId;
+        tempList[editRow-1].courseID = editId;
         tempList[editRow-1].name = editName;
         tempList[editRow-1].credits = editCredits;
         classList = tempList;
@@ -129,7 +129,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                 <td>
                                     <InputGroup className="sbj-id">
                                         <FormControl
-                                            placeholder={sbj.id}
+                                            placeholder={sbj.courseID}
                                             aria-label="ID"
                                             aria-describedby="basic-addon1"
                                             onChange={(event) => setEditId(event.target.value)}
@@ -160,7 +160,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                             </tr>
                             : // otherwise do what it originally does
                             <tr key={sbj.key}> 
-                                <td>{sbj.id}</td>
+                                <td>{sbj.courseID}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
                                 <td><Button className="m-1" onClick={() => editSem(sbj.key)}>Edit</Button></td>

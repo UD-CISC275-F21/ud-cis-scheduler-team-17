@@ -3,19 +3,11 @@ import React from "react";
 import { ClassTable } from "./ClassTable";
 import { Semester } from "../interfaces/semester";
 import { useState } from "react";
-//import { Upload } from "./Upload";
-
-/*
-I think for this it should return a card and several subject components (which will need to be made for ease of adding classes).
-It should have the buttons to add courses.
-3 columns 5 rows default?
--NEEDS "ADD CLASS" BUTTON
-*/
 
 export function SemesterTable() : JSX.Element {
     const [currentID, setID] = useState<number>(0);
     const semestersPerYear = 2; // In case we want to change the number of semesters per year
-    const defaultClasses = [{id: "CISC", name: "Class Name", credits: 3, key: 1},{id: "CISC", name: "Class Name", credits: 3, key: 2},{id: "CISC", name: "Class Name", credits: 3, key: 3},{id: "CISC", name: "Class Name", credits: 3, key: 4},{id: "CISC", name: "Class Name", credits: 3, key: 5}];
+    const defaultClasses = [{courseID: "CISC", name: "Class Name", credits: 3, key: 1},{courseID: "CISC", name: "Class Name", credits: 3, key: 2},{courseID: "CISC", name: "Class Name", credits: 3, key: 3},{courseID: "CISC", name: "Class Name", credits: 3, key: 4},{courseID: "CISC", name: "Class Name", credits: 3, key: 5}];
     const [semesterCounter, setSemesterCounter] = useState<number>(0);
     const LOCAL_STORAGE_SEMESTERS = "schedule";
     const INITIAL_SEMESTERS: Semester[] = [
