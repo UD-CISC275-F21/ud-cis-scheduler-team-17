@@ -98,8 +98,10 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     //<Row>ID {semesterID}</Row>
     //<Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
     return (
-        <Row><Card className="m-3">
-            <Row><p className="text-center"><strong>Semester {currentSem} Year {currYear}</strong></p></Row>
+        <Row><Card className="text-center m-3">
+            <Col>
+                <p className="text-center"><strong>Semester {currentSem} Year {currYear}</strong></p>
+            </Col>
             <table>
                 <thead><tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr></thead>
                 { classList.map((sbj: Class) => {
@@ -149,17 +151,17 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                 <td>{sbj.courseID}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
-                                <td><Button className="m-1" onClick={() => editSem(sbj.key)}>Edit</Button></td>
-                                <td><Button className="m-1" onClick={() => deleteCourse(sbj.key)}>Delete</Button></td>
+                                <Button className="m-1" onClick={() => editSem(sbj.key)}>Edit</Button>
+                                <Button className="btn btn-small-delete rounded-circle m-1" onClick={() => deleteCourse(sbj.key)}>X</Button>
                             </tr>
                     );
                 })}
             </table>
             <Row>
                 <Col><Button className="m-2" data-testid="add-course-button"onClick={addCourse}>Add Course</Button></Col>
-                <Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteLastCourse}><div className="btn-del-course">Delete Course</div></Button></Col>
+                <Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteLastCourse}>Delete Course</Button></Col>
                 <Col><Button className="m-2" data-testid="clear-courses-button" onClick={clearCourse}>Clear Courses</Button></Col>
-                <Col><Button className="m-2" data-testid="delete-this-semester-button" onClick={deleteSem}>Delete This Semester</Button></Col>
+                <Col><Button className="btn btn-delete m-2" data-testid="delete-this-semester-button" onClick={deleteSem}>Delete Semester</Button></Col>
             </Row>
         </Card></Row>
     );

@@ -1,6 +1,6 @@
 .btn {
     background-color: darkslategray;
-    border-color: gold;
+    border-color: black;
 }
 
 .btn-delete {
@@ -9,4 +9,8 @@
 
 .btn-add {
     background-color: rgb(61, 189, 78);
+}
+
+.btn-small-delete {
+    background-color: rgb(255, 98, 98);
 }
