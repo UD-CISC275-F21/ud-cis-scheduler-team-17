@@ -1,6 +1,6 @@
 .btn {
     background-color: darkslategray;
-    border-color: black;
+    border-color: transparent;
 }
 
 .btn-delete {
@@ -13,4 +13,5 @@
 
 .btn-small-delete {
     background-color: rgb(255, 98, 98);
+    font-size: 11pt;
 }
