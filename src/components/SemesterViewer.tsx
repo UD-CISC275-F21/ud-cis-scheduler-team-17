@@ -42,16 +42,6 @@ export function SemesterTable() : JSX.Element {
         setSemesterCounter(tempSemCounter);
     }
     
-    function deleteSemester() {
-        setID(currentID-1);
-        const sems: Semester[] = [...allSemesters]; 
-        sems.pop();
-        if (!sems[0]) {
-            setID(-1);
-        }
-        changeSemesters(sems);
-    }
-    
     function deleteAllSems() {
         setID(-1);
         changeSemesters([]);
@@ -88,7 +78,6 @@ export function SemesterTable() : JSX.Element {
                     })}
                 </table>
             </Row>
-            <Button data-testid="delete-last-semester-button" onClick={deleteSemester} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Delete Last Semester</Button>
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
             <Button data-testid="save-to-local-button" onClick={saveToLocal} className="btn btn-save m-3">Save Layout</Button>
         </>

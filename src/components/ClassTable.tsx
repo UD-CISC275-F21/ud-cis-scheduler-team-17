@@ -40,17 +40,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         setSemList(fixedList);
     }
 
-    function deleteLastCourse () {
-        setKey(currentKey + 1);
-        const newClasses: Class[] = [...classList];
-        newClasses.pop();
-        classList = [...newClasses];
-        const fixedList: Semester[] = [...semList];
-        const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
-        fixedList[idx].classes = classList;
-        setSemList(fixedList);
-    }
-
     function deleteCourse (currentKey: number) {
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
@@ -79,17 +68,26 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         setSemList(fixedList);
     }
 
-    function editSem (currSem: number) {
-        setEditRow(currSem);
+    function editCourse (currCourse: number) {
+        setEditRow(currCourse);
     }
 
     function submitSem () {
-        const tempList = classList;
-        tempList[editRow-1].courseID = editId;
-        tempList[editRow-1].name = editName;
-        tempList[editRow-1].credits = editCredits;
+        const tempList = [...classList];
+        if (editId!=="") {
+            tempList[editRow-1].courseID = editId;
+        }
+        if (editName!=="") {
+            tempList[editRow-1].name = editName;
+        }
+        if (editCredits!==0) {
+            tempList[editRow-1].credits = editCredits;
+        }
         classList = tempList;
         setEditRow(0);
+        setEditId("");
+        setEditName("");
+        setEditCredits(0);
     }
 
     let newRow = 0;
@@ -98,8 +96,10 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     //<Row>ID {semesterID}</Row>
     //<Row>ID {currID} SemesterNo. {currentSem} YearNo. {currYear}</Row>
     return (
-        <Row><Card className="m-3">
-            <Row><p className="text-center"><strong>Semester {currentSem} Year {currYear}</strong></p></Row>
+        <Row><Card className="text-center m-3">
+            <Col>
+                <p className="text-center" style={{fontSize:17}}><u><strong>Year {currYear} Semester {currentSem}</strong></u></p>
+            </Col>
             <table>
                 <thead><tr><th>Class ID</th><th>Class Name</th><th>Credits</th></tr></thead>
                 { classList.map((sbj: Class) => {
@@ -149,19 +149,19 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                 <td>{sbj.courseID}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
-                                <td><Button className="m-1" onClick={() => editSem(sbj.key)}>Edit</Button></td>
-                                <td><Button className="m-1" onClick={() => deleteCourse(sbj.key)}>Delete</Button></td>
+                                <Button className="m-1" onClick={() => editCourse(classList.findIndex((subject: Class)=>subject.key===sbj.key)+1)}>Edit</Button>
+                                <Button className="btn btn-small-delete rounded-circle m-1" onClick={() => deleteCourse(sbj.key)}>X</Button>
                             </tr>
                     );
                 })}
             </table>
             <Row>
                 <Col><Button className="m-2" data-testid="add-course-button"onClick={addCourse}>Add Course</Button></Col>
-                <Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteLastCourse}><div className="btn-del-course">Delete Course</div></Button></Col>
                 <Col><Button className="m-2" data-testid="clear-courses-button" onClick={clearCourse}>Clear Courses</Button></Col>
-                <Col><Button className="m-2" data-testid="delete-this-semester-button" onClick={deleteSem}>Delete This Semester</Button></Col>
+                <Col><Button className="btn btn-delete m-2" data-testid="delete-this-semester-button" onClick={deleteSem}>Delete Semester</Button></Col>
             </Row>
         </Card></Row>
     );
     //Table setup credit to Dr. Bart
+    //<Col><Button className="m-2" data-testid="delete-last-course-button" onClick = {deleteLastCourse}>Delete Course</Button></Col>
 }
