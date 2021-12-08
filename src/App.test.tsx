@@ -76,7 +76,43 @@ describe("App", () => {
     it("edits the information in courses when Edit button is pressed, information is passed, and Submit button is pressed", async() => {
         const editButton = screen.getByTestId("edit-button");
         const initialCourse = screen.getByText(/CISC/);
-
+        
     });
     */
+
+    it("adds 10 semesters, to check if it still functions correctly", async () => {
+        const addSemesterButton = screen.getByTestId("add-semester-button");
+        for (let i = 0; i < 10; i++) {
+            addSemesterButton.click();
+        }
+        const newSemesters = screen.queryAllByText(/Year/);
+        expect(newSemesters.length).toEqual(11); // 1 original semester, 10 more added on
+    });
+
+    it("still functions when clear all semesters is pressed when there are no semesters", async() => {
+        const clearCoursesButton = screen.getByTestId("clear-courses-button");
+        clearCoursesButton.click();
+        const clearedCourses = screen.queryAllByText(/CISC/);
+        expect(clearedCourses.length).toEqual(2); // Clears first semester
+
+        clearCoursesButton.click();
+        const newCourses = screen.queryAllByText(/CISC/);
+        expect(newCourses.length).toEqual(clearedCourses.length); // Nothing should change on second clear
+    });
+
+    it("deletes every class of a semester, then deletes the semester with no errors", async() => {
+        const deleteCourseButtons = screen.getAllByTestId("delete-course-button");
+        for (let i = 0; i < deleteCourseButtons.length; i++) {
+            deleteCourseButtons[i].click();
+        }
+        const noCourses = screen.queryAllByText(/Class Name/);
+        expect(noCourses.length).toEqual(1); // Only instance of Class Name is header
+
+        const deleteThisSemesterButton = screen.getByTestId("delete-this-semester-button");
+        deleteThisSemesterButton.click()
+        const noSemesters = screen.queryAllByText(/Class Name/);
+        expect(noSemesters.length).toEqual(0); // Semester should clear and leave no header to be found
+    });
+
+
 });

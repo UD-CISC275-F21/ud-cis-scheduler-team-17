@@ -149,14 +149,14 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                 <td>{sbj.courseID}</td>
                                 <td>{sbj.name}</td>
                                 <td>{sbj.credits}</td>
-                                <Button className="m-1" onClick={() => editCourse(classList.findIndex((subject: Class)=>subject.key===sbj.key)+1)}>Edit</Button>
-                                <Button className="btn btn-small-delete rounded-circle m-1" onClick={() => deleteCourse(sbj.key)}>X</Button>
+                                <Button className="m-1" data-testid="edit-course-button" onClick={() => editCourse(classList.findIndex((subject: Class)=>subject.key===sbj.key)+1)}>Edit</Button>
+                                <Button className="btn btn-small-delete rounded-circle m-1" data-testid="delete-course-button" onClick={() => deleteCourse(sbj.key)}>X</Button>
                             </tr>
                     );
                 })}
             </table>
             <Row>
-                <Col><Button className="m-2" data-testid="add-course-button"onClick={addCourse}>Add Course</Button></Col>
+                <Col><Button className="m-2" data-testid="add-course-button" onClick={addCourse}>Add Course</Button></Col>
                 <Col><Button className="m-2" data-testid="clear-courses-button" onClick={clearCourse}>Clear Courses</Button></Col>
                 <Col><Button className="btn btn-delete m-2" data-testid="delete-this-semester-button" onClick={deleteSem}>Delete Semester</Button></Col>
             </Row>
