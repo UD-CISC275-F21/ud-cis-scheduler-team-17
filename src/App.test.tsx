@@ -26,33 +26,25 @@ describe("App", () => {
     });*/
 
     it("should have one semester on screen on load", () => {
-        const listOfSemesters = screen.getAllByText(/Semester \d Year \d/);
+        const listOfSemesters = screen.getAllByText(/Year \d Semester \d/);
         expect(listOfSemesters.length).toEqual(1);
     });
 
     it("adds a semester when Add Semester button is clicked", async () => {
         const addSemButton = screen.getByTestId("add-semester-button");
-        const listOfSemesters = screen.getAllByText(/Semester \d Year \d/);
+        const listOfSemesters = screen.getAllByText(/Year \d Semester \d/);
         addSemButton.click();
-        const newListOfSemesters = await screen.queryAllByText(/Semester \d Year \d/);
+        const newListOfSemesters = await screen.queryAllByText(/Year \d Semester \d/);
         expect(listOfSemesters.length+1).toEqual(newListOfSemesters.length);
-    });
-
-    it("deletes a semester when Delete Last Semester button is clicked", async () => {
-        const deleteLastSemButton = screen.getByTestId("delete-last-semester-button");
-        const listOfSemesters = screen.getAllByText(/Semester \d Year \d/);
-        deleteLastSemButton.click();
-        const newListOfSemesters = await screen.queryAllByText(/Semester \d Year \d/);
-        expect(listOfSemesters.length-1).toEqual(newListOfSemesters.length);
     });
 
     it("should clear and add one semester when Clear All Semesters button is clicked", async () => {
         const startOverButton = screen.getByTestId("clear-all-semesters-button");
         const addSemesterButton = screen.getByTestId("add-semester-button");
         addSemesterButton.click();
-        const twoSemesterList = screen.getAllByText(/Semester \d Year \d/);
+        const twoSemesterList = screen.getAllByText(/Year \d Semester \d/);
         startOverButton.click();
-        const resetSemesterList = screen.queryAllByText(/Semester \d Year \d/);
+        const resetSemesterList = screen.queryAllByText(/Year \d Semester \d/);
         expect(resetSemesterList.length).toEqual(0);
         expect(resetSemesterList).not.toEqual(twoSemesterList);
     });
@@ -65,19 +57,11 @@ describe("App", () => {
         expect(listOfCourses.length+1).toEqual(newListOfCourses.length);
     });
 
-    it("deletes last course when you click Delete Course button", async () => {
-        const deleteCourseButton = screen.getByTestId("delete-last-course-button");
-        const listOfCourses = screen.getAllByText(/CISC/);
-        deleteCourseButton.click();
-        const newListOfCourses = screen.queryAllByText(/CISC/);
-        expect(listOfCourses.length-1).toEqual(newListOfCourses.length);
-    });
-
     it("deletes the semester when Delete This Semester button clicked", async () => {
         const deleteThisSemesterButton = screen.getByTestId("delete-this-semester-button");
-        const initialSemesterList = screen.getAllByText(/Semester \d Year \d/);
+        const initialSemesterList = screen.getAllByText(/Year \d Semester \d/);
         deleteThisSemesterButton.click();
-        const deletedSemesterList = screen.queryAllByText(/Semester \d Year \d/);
+        const deletedSemesterList = screen.queryAllByText(/Year \d Semester \d/);
         expect(deletedSemesterList.length).toEqual(initialSemesterList.length-1);
     });
 
