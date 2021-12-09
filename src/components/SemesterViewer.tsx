@@ -48,6 +48,7 @@ export function SemesterTable() : JSX.Element {
     
     function deleteAllSems() {
         setID(-1);
+        setEditableReqs([...REQUIREDCLASSES]);
         changeSemesters([]);
         setSemesterCounter(-1);
     }

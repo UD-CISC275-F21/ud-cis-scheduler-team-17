@@ -73,6 +73,14 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function deleteSem () {
         idSet(lastID+1);
+        let addBack: Class[] = [...changingReqs];
+        for(let i=0; i<classList.length; i++) {
+            const temp: Class = classList[i];
+            if (allReqs.findIndex((course: Class)=>course.courseID===temp.courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===temp.courseID)===-1) {
+                addBack = [...addBack, temp];
+            }
+        }
+        setReqList(addBack);
         const fixedList = semList.filter((semFilter) => semFilter.id!==currID);
         for (let i=0, temp:Semester; fixedList[i]; i++) {
             temp = fixedList[i];
