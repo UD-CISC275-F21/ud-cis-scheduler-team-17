@@ -129,19 +129,15 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
             setReqList(fixedReqs);
         }*/
         if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===editId)===-1 && editId!=="") {
-            alert("unrelated");
             let addBack: Class[] = [...changingReqs];
             if (existsElsewhere(semList, tempList[editRow-1])-1===0) {
-                alert("nowhere else");
                 addBack = [...addBack, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}];
             }
             setReqList(addBack);
         }
         if (changingReqs.findIndex((course: Class) => course.courseID===editId)!==-1) {
-            alert("required");
             let fixedReqs = changingReqs.filter((reqFilter)=>reqFilter.courseID!==editId);
             if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class) => course.courseID===tempList[editRow-1].courseID)==-1) {
-                alert("swap");
                 if (existsElsewhere(semList, tempList[editRow-1])-1===0) {
                     fixedReqs = [...fixedReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}];
                 }
