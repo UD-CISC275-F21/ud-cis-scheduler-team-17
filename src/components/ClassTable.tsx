@@ -4,7 +4,7 @@ import {Class} from "../interfaces/class";
 import { Card, Row, Button, Col, InputGroup, FormControl } from "react-bootstrap";
 import { Semester } from "../interfaces/semester";
 
-export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, setSemCount, classList}:{
+export function ClassTable({currID, currentSem, currYear, semList, setSemList, lastID, idSet, semPer, setSemCount, classList, changingReqs, setReqList, allReqs}:{
     currID: number,
     currentSem: number,
     currYear: number,
@@ -14,7 +14,10 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     idSet: (num: number) => void,
     semPer: number,
     setSemCount: (num: number) => void
-    classList: Class[];
+    classList: Class[],
+    changingReqs: Class[],
+    setReqList: (newList: Class[]) => void,
+    allReqs: Class[]
 }) : JSX.Element {
     const [currentId, setId] = useState<string>("CISC");
     const [courseName, setcourseName]  = useState<string>("ClassName");
@@ -43,12 +46,24 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     function deleteCourse (currentKey: number) {
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
+        const removedIdx = fixedList[idx].classes.findIndex((course: Class)=>course.key===currentKey);
+        if (allReqs.findIndex((course: Class)=>course.courseID===fixedList[idx].classes[removedIdx].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===fixedList[idx].classes[removedIdx].courseID)===-1) {
+            setReqList([...changingReqs, fixedList[idx].classes[removedIdx]]);
+        }
         fixedList[idx].classes = classList.filter((sbj) => sbj.key !== currentKey);
         setSemList(fixedList);
     }
 
     function clearCourse () {
         setKey(0);
+        let addBack: Class[] = [...changingReqs];
+        for(let i=0; i<classList.length; i++) {
+            const temp: Class = classList[i];
+            if (allReqs.findIndex((course: Class)=>course.courseID===temp.courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===temp.courseID)===-1) {
+                addBack = [...addBack, temp];
+            }
+        }
+        setReqList(addBack);
         classList = [];
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
@@ -58,6 +73,14 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function deleteSem () {
         idSet(lastID+1);
+        let addBack: Class[] = [...changingReqs];
+        for(let i=0; i<classList.length; i++) {
+            const temp: Class = classList[i];
+            if (allReqs.findIndex((course: Class)=>course.courseID===temp.courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===temp.courseID)===-1) {
+                addBack = [...addBack, temp];
+            }
+        }
+        setReqList(addBack);
         const fixedList = semList.filter((semFilter) => semFilter.id!==currID);
         for (let i=0, temp:Semester; fixedList[i]; i++) {
             temp = fixedList[i];
@@ -74,6 +97,9 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function submitSem () {
         const tempList = [...classList];
+        if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===editId)===-1 && editId!=="") {
+            setReqList([...changingReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}]);
+        }
         if (editId!=="") {
             tempList[editRow-1].courseID = editId;
         }
@@ -84,10 +110,15 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
             tempList[editRow-1].credits = editCredits;
         }
         classList = tempList;
+        if (changingReqs.findIndex((course: Class) => course.courseID===editId)!==-1) {
+            const fixedReqs = changingReqs.filter((reqFilter)=>reqFilter.courseID!==editId);
+            setReqList(fixedReqs);
+        }
         setEditRow(0);
         setEditId("");
         setEditName("");
         setEditCredits(0);
+
     }
 
     let newRow = 0;
