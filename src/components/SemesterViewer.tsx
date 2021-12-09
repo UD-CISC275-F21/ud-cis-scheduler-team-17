@@ -21,11 +21,20 @@ export function SemesterTable() : JSX.Element {
 
     function getLocalStorageSemesters(): Semester[] {
         const rawSemesters: string|null = localStorage.getItem(LOCAL_STORAGE_SEMESTERS);
-        if (rawSemesters === null) {
-            return [...INITIAL_SEMESTERS];
-        } else {
-            return JSON.parse(rawSemesters);
+        let loadedSemesters: Semester[] = [...INITIAL_SEMESTERS];
+        if (rawSemesters!==null) {
+            loadedSemesters = JSON.parse(rawSemesters);
+            let fixedList = [...REQUIREDCLASSES];
+            for (let i=0; i<loadedSemesters.length; i++) {
+                for (let j=0; j<loadedSemesters[i].classes.length; j++) {
+                    if (editableReqs.findIndex((course: Class)=>course.courseID===loadedSemesters[i].classes[j].courseID)) {
+                        fixedList = [...fixedList.filter((reqFilter)=>reqFilter.courseID!==loadedSemesters[i].classes[j].courseID)];
+                    }
+                }
+            }
+            setEditableReqs(fixedList);
         }
+        return loadedSemesters;
     }
 
     const [allSemesters, changeSemesters] = useState<Semester[]>(getLocalStorageSemesters);

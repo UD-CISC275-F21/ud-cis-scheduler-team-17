@@ -43,52 +43,63 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         setSemList(fixedList);
     }
 
+    function existsElsewhere (searchList: Semester[], toFind: Class): number {
+        let found = 0;
+        for (let i=0; i<searchList.length; i++) {
+            if (searchList[i].classes.findIndex((course: Class)=>course.courseID===toFind.courseID)!==-1) {
+                found = 1;
+            }
+        }
+        return found;
+    }
+
     function deleteCourse (currentKey: number) {
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
         const removedIdx = fixedList[idx].classes.findIndex((course: Class)=>course.key===currentKey);
-        if (allReqs.findIndex((course: Class)=>course.courseID===fixedList[idx].classes[removedIdx].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===fixedList[idx].classes[removedIdx].courseID)===-1) {
-            setReqList([...changingReqs, fixedList[idx].classes[removedIdx]]);
-        }
+        let newReqs: Class[] = [...changingReqs];
+        const removedCourse: Class = fixedList[idx].classes[removedIdx];
         fixedList[idx].classes = classList.filter((sbj) => sbj.key !== currentKey);
+        if (allReqs.findIndex((course: Class)=>course.courseID===removedCourse.courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===removedCourse.courseID)===-1) {
+            if (existsElsewhere(semList, removedCourse)===0) {
+                newReqs = [...changingReqs, removedCourse];
+            }
+            setReqList(newReqs);
+        }
         setSemList(fixedList);
     }
 
     function clearCourse () {
         setKey(0);
         let addBack: Class[] = [...changingReqs];
-        for(let i=0; i<classList.length; i++) {
-            const temp: Class = classList[i];
-            if (allReqs.findIndex((course: Class)=>course.courseID===temp.courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===temp.courseID)===-1) {
-                addBack = [...addBack, temp];
-            }
-        }
-        setReqList(addBack);
+        const deletedClasses: Class[] = [...classList];
         classList = [];
         const fixedList: Semester[] = [...semList];
         const idx = fixedList.findIndex((semester: Semester) => semester.id===currID);
         fixedList[idx].classes = classList;
+        for(let i=0; i<deletedClasses.length; i++) {
+            const temp: Class = deletedClasses[i];
+            if (allReqs.findIndex((course: Class)=>course.courseID===temp.courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===temp.courseID)===-1) {
+                if (existsElsewhere(semList, temp)===0) {
+                    addBack = [...addBack, temp];
+                }
+            }
+        }
+        setReqList(addBack);
         setSemList(fixedList);
     }
 
     function deleteSem () {
         idSet(lastID+1);
-        let addBack: Class[] = [...changingReqs];
-        for(let i=0; i<classList.length; i++) {
-            const temp: Class = classList[i];
-            if (allReqs.findIndex((course: Class)=>course.courseID===temp.courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===temp.courseID)===-1) {
-                addBack = [...addBack, temp];
-            }
-        }
-        setReqList(addBack);
-        const fixedList = semList.filter((semFilter) => semFilter.id!==currID);
-        for (let i=0, temp:Semester; fixedList[i]; i++) {
-            temp = fixedList[i];
+        clearCourse();
+        const fixedLabels = semList.filter((semFilter) => semFilter.id!==currID);
+        for (let i=0, temp:Semester; fixedLabels[i]; i++) {
+            temp = fixedLabels[i];
             temp.semesterNum = (i%semPer)+1;
             temp.year = Math.trunc(i/semPer)+1;
         }
-        setSemCount(fixedList.length-1);
-        setSemList(fixedList);
+        setSemCount(fixedLabels.length-1);
+        setSemList(fixedLabels);
     }
 
     function editCourse (currCourse: number) {
@@ -98,12 +109,18 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
     function submitSem () {
         const tempList = [...classList];
         if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===editId)===-1 && editId!=="") {
-            setReqList([...changingReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}]);
+            let addBack: Class[] = [...changingReqs];
+            if (existsElsewhere(semList, tempList[editRow-1])===0) {
+                addBack = [...addBack, tempList[editRow-1]];
+            }
+            setReqList(addBack);
         }
         if (changingReqs.findIndex((course: Class) => course.courseID===editId)!==-1) {
             let fixedReqs = changingReqs.filter((reqFilter)=>reqFilter.courseID!==editId);
             if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class) => course.courseID===tempList[editRow-1].courseID)==-1) {
-                fixedReqs = [...fixedReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}];
+                if (existsElsewhere(semList, tempList[editRow-1])===0) {
+                    fixedReqs = [...fixedReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}];
+                }
             }
             setReqList(fixedReqs);
         }
