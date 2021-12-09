@@ -68,8 +68,8 @@ describe("App", () => {
     it("clears all courses in a semester when Clear Courses button is clicked", async () => {
         const clearCoursesButton = screen.getByTestId("clear-courses-button");
         clearCoursesButton.click();
-        const newCourses = screen.queryAllByText(/CISC/);
-        expect(newCourses.length).toEqual(2); // 2 Because of the ones in the header
+        const newCourses = screen.queryAllByText(/Class Name/);
+        expect(newCourses.length).toEqual(1); // 2 Because of the ones in the header
     });
     //TODO: Test edit buttons
     /*
@@ -85,19 +85,19 @@ describe("App", () => {
         for (let i = 0; i < 10; i++) {
             addSemesterButton.click();
         }
-        const newSemesters = screen.queryAllByText(/Year/);
+        const newSemesters = screen.queryAllByText(/Year \d Semester \d/);
         expect(newSemesters.length).toEqual(11); // 1 original semester, 10 more added on
     });
 
     it("still functions when clear all semesters is pressed when there are no semesters", async() => {
-        const clearCoursesButton = screen.getByTestId("clear-courses-button");
-        clearCoursesButton.click();
-        const clearedCourses = screen.queryAllByText(/CISC/);
-        expect(clearedCourses.length).toEqual(2); // Clears first semester
+        const clearSemestersButton = screen.getByTestId("clear-all-semesters-button");
+        clearSemestersButton.click();
+        const clearedSemesters = screen.queryAllByText(/Year \d Semester \d/);
+        expect(clearedSemesters.length).toEqual(0); // Clears first semester
 
-        clearCoursesButton.click();
-        const newCourses = screen.queryAllByText(/CISC/);
-        expect(newCourses.length).toEqual(clearedCourses.length); // Nothing should change on second clear
+        clearSemestersButton.click();
+        const newSemesters = screen.queryAllByText(/Year \d Semester \d/);
+        expect(newSemesters.length).toEqual(clearedSemesters.length); // Nothing should change on second clear
     });
 
     it("deletes every class of a semester, then deletes the semester with no errors", async() => {
