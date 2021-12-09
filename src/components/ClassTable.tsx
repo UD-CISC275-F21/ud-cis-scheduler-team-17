@@ -100,6 +100,13 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===editId)===-1 && editId!=="") {
             setReqList([...changingReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}]);
         }
+        if (changingReqs.findIndex((course: Class) => course.courseID===editId)!==-1) {
+            let fixedReqs = changingReqs.filter((reqFilter)=>reqFilter.courseID!==editId);
+            if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class) => course.courseID===tempList[editRow-1].courseID)==-1) {
+                fixedReqs = [...fixedReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}];
+            }
+            setReqList(fixedReqs);
+        }
         if (editId!=="") {
             tempList[editRow-1].courseID = editId;
         }
@@ -110,10 +117,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
             tempList[editRow-1].credits = editCredits;
         }
         classList = tempList;
-        if (changingReqs.findIndex((course: Class) => course.courseID===editId)!==-1) {
-            const fixedReqs = changingReqs.filter((reqFilter)=>reqFilter.courseID!==editId);
-            setReqList(fixedReqs);
-        }
         setEditRow(0);
         setEditId("");
         setEditName("");
