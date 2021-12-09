@@ -109,7 +109,7 @@ describe("App", () => {
         expect(noCourses.length).toEqual(1); // Only instance of Class Name is header
 
         const deleteThisSemesterButton = screen.getByTestId("delete-this-semester-button");
-        deleteThisSemesterButton.click()
+        deleteThisSemesterButton.click();
         const noSemesters = screen.queryAllByText(/Class Name/);
         expect(noSemesters.length).toEqual(0); // Semester should clear and leave no header to be found
     });
@@ -145,7 +145,7 @@ describe("App", () => {
     it("edits the first course to say something different, and submits to update the semester", async() => {
         const editCourseButtons = screen.getAllByTestId("edit-course-button");
         editCourseButtons[0].click();
-        const inputGroup = screen.getAllByTestId("input-group")[1] // 1, so it edits the class name field
+        const inputGroup = screen.getAllByTestId("input-group")[1]; // 1, so it edits the class name field
         fireEvent.change(inputGroup, {
             target: {value: "Cool New Class Name"},
         });
@@ -160,7 +160,7 @@ describe("App", () => {
         addCourseButton.click();
         const editCourseButtons = screen.getAllByTestId("edit-course-button");
         editCourseButtons[2].click();
-        const inputGroup = screen.getAllByTestId("input-group")[1]
+        const inputGroup = screen.getAllByTestId("input-group")[1];
         fireEvent.change(inputGroup, {
             target: {value: "Cool New Class Name"},
         });
@@ -176,7 +176,7 @@ describe("App", () => {
         deleteCourseButtons[3].click();
         const editCourseButtons = screen.getAllByTestId("edit-course-button");
         editCourseButtons[2].click();
-        const inputGroup = screen.getAllByTestId("input-group")[1]
+        const inputGroup = screen.getAllByTestId("input-group")[1];
         fireEvent.change(inputGroup, {
             target: {value: "Cool New Class Name"},
         });
@@ -190,7 +190,7 @@ describe("App", () => {
     it("edits one course, and that should have no effect on the default value of another edit", async() => {
         const editCourseButtons = screen.getAllByTestId("edit-course-button");
         editCourseButtons[0].click();
-        const inputGroup = screen.getAllByTestId("input-group")[1]
+        const inputGroup = screen.getAllByTestId("input-group")[1];
         fireEvent.change(inputGroup, {
             target: {value: "Cool New Class Name"},
         });
@@ -212,7 +212,7 @@ describe("App", () => {
         addSemesterButton.click();
         const editCourseButtons = screen.getAllByTestId("edit-course-button");
         editCourseButtons[0].click();
-        const inputGroup = screen.getAllByTestId("input-group")[1]
+        const inputGroup = screen.getAllByTestId("input-group")[1];
         fireEvent.change(inputGroup, {
             target: {value: "Cool New Class Name"},
         });
@@ -229,7 +229,7 @@ describe("App", () => {
     it("edits all three fields and submits all three successfully", async() => {
         const editCourseButtons = screen.getAllByTestId("edit-course-button");
         editCourseButtons[0].click();
-        const inputGroup = screen.getAllByTestId("input-group")
+        const inputGroup = screen.getAllByTestId("input-group");
         fireEvent.change(inputGroup[0], {
             target: {value: "CISC100"},
         });
