@@ -118,6 +118,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                             placeholder={sbj.courseID}
                                             aria-label="ID"
                                             aria-describedby="basic-addon1"
+                                            data-testid="input-group"
                                             onChange={(event) => setEditId(event.target.value)}
                                         />
                                     </InputGroup>
@@ -128,6 +129,7 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                             placeholder={sbj.name}
                                             aria-label="Name"
                                             aria-describedby="basic-addon1"
+                                            data-testid="input-group"
                                             onChange={(event) => setEditName(event.target.value)}
                                         />
                                     </InputGroup>
@@ -138,11 +140,12 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
                                             placeholder={sbj.credits.toString()}
                                             aria-label="Credits"
                                             aria-describedby="basic-addon1"
+                                            data-testid="input-group"
                                             onChange={(event) => setEditCredits(parseInt(event.target.value,10))}
                                         />
                                     </InputGroup>
                                 </td>
-                                <td><Button onClick={submitSem}>Submit</Button></td>
+                                <td><Button data-testid="submit-button" onClick={submitSem}>Submit</Button></td>
                             </tr>
                             : // otherwise do what it originally does
                             <tr key={sbj.key}> 

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import App from "./App";
 //import { start } from "repl";
 
@@ -114,5 +114,120 @@ describe("App", () => {
         expect(noSemesters.length).toEqual(0); // Semester should clear and leave no header to be found
     });
 
+    it("deletes the appropriate semester when delete semester is clicked", async() => {
+        const addSemesterButton = screen.getByTestId("add-semester-button");
+        for(let i = 0; i < 3; i++) {
+            addSemesterButton.click();
+        }
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[5].click(); // Click the first edit button on the second semester
+        const editBoxes = screen.getAllByTestId("input-group");
+        expect(editBoxes.length).toEqual(3); // 3 edit boxes should appear
+
+        const deleteSemesterButtons = screen.getAllByTestId("delete-this-semester-button");
+        deleteSemesterButtons[1].click();
+        const newEditBoxes = screen.queryAllByTestId("input-group");
+        expect(newEditBoxes.length).toBeLessThan(editBoxes.length); // There should be no more edit boxes, deleting semester 2 specifically
+    });
+
+    it("defaults to the previous text in the edit box when submitted with no changes", async() => {
+        const defaultCourses = screen.getAllByText(/Class Name/);
+        expect(defaultCourses.length).toEqual(6); // 5 courses + header
+        
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const postSubmitCourses = screen.getAllByText(/Class Name/);
+        expect(postSubmitCourses.length).toEqual(6); // Should still be 6 if nothing changed
+    });
+
+    it("edits the first course to say something different, and submits to update the semester", async() => {
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup = screen.getAllByTestId("input-group")[1] // 1, so it edits the class name field
+        fireEvent.change(inputGroup, {
+            target: {value: "Cool New Class Name"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const editedCourses = screen.getAllByText("Cool New Class Name");
+        expect(editedCourses.length).toEqual(1); // There should only be one cool class name
+    });
+
+    it("edits the correct row after adding a course", async() => {
+        const addCourseButton = screen.getByTestId("add-course-button");
+        addCourseButton.click();
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[2].click();
+        const inputGroup = screen.getAllByTestId("input-group")[1]
+        fireEvent.change(inputGroup, {
+            target: {value: "Cool New Class Name"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const editedCourses = screen.getAllByText("Class Name", {exact: false});
+        const specificCourse = editedCourses[3]; // 3 because of the header
+        expect(specificCourse).toContainHTML("<td>Cool New Class Name</td>"); // The 3rd class should be the cool class name
+    });
+
+    it("edits the correct row after deleting a course", async() => {
+        const deleteCourseButtons = screen.getAllByTestId("delete-course-button");
+        deleteCourseButtons[3].click();
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[2].click();
+        const inputGroup = screen.getAllByTestId("input-group")[1]
+        fireEvent.change(inputGroup, {
+            target: {value: "Cool New Class Name"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const editedCourses = screen.getAllByText("Class Name", {exact: false});
+        const specificCourse = editedCourses[3]; // 3 because of the header
+        expect(specificCourse).toContainHTML("<td>Cool New Class Name</td>"); // Check if the 3rd class has the expected edited result
+    });
+
+    it("edits one course, and that should have no effect on the default value of another edit", async() => {
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup = screen.getAllByTestId("input-group")[1]
+        fireEvent.change(inputGroup, {
+            target: {value: "Cool New Class Name"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const editedCourses = screen.getAllByText("Class Name", {exact: false});
+        const specificCourse = editedCourses[1]; // 1 because of the header
+        expect(specificCourse).toContainHTML("<td>Cool New Class Name</td>"); // Check to make sure the edit was successful
+
+        editCourseButtons[2].click();
+        const newSubmitButton = screen.getByTestId("submit-button");
+        newSubmitButton.click();
+        const coolNames = screen.getAllByText("Cool New Class Name");
+        expect(coolNames.length).toEqual(1); // If the default was kept, and nothing was changed, there should only be one cool name
+    });
+
+    it("keeps the semesters separate, meaning, editing one semester does not affect another", async() => {
+        const addSemesterButton = screen.getByTestId("add-semester-button");
+        addSemesterButton.click();
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup = screen.getAllByTestId("input-group")[1]
+        fireEvent.change(inputGroup, {
+            target: {value: "Cool New Class Name"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click(); // Edit the first class in the first semester to be a cool name
+
+        editCourseButtons[6].click(); // Edit the second class in the second semester
+        const newSubmitButton = screen.getByTestId("submit-button");
+        newSubmitButton.click(); // Submit with no changes
+        const coolNames = screen.getAllByText("Cool New Class Name");
+        expect(coolNames.length).toEqual(1); // If the semesters were separate entities, the cool name should not have been transferred to Sem 2
+    });
+
+    it("edits all three fields and submits all three successfully", async() => {
+        
+    });
 
 });
