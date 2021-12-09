@@ -223,11 +223,32 @@ describe("App", () => {
         const newSubmitButton = screen.getByTestId("submit-button");
         newSubmitButton.click(); // Submit with no changes
         const coolNames = screen.getAllByText("Cool New Class Name");
-        expect(coolNames.length).toEqual(1); // If the semesters were separate entities, the cool name should not have been transferred to Sem 2
+        expect(coolNames.length).toEqual(1); // If the semesters were separate entities, the cool name should not have been copied to Semester 2
     });
 
     it("edits all three fields and submits all three successfully", async() => {
-        
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup = screen.getAllByTestId("input-group")
+        fireEvent.change(inputGroup[0], {
+            target: {value: "CISC100"},
+        });
+        fireEvent.change(inputGroup[1], {
+            target: {value: "Cool New Class Name"},
+        });
+        fireEvent.change(inputGroup[2], {
+            target: {value: "4"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click(); // Submits three changes in one edit
+
+        const newClassIds = screen.getAllByText("CISC100");
+        expect(newClassIds.length).toEqual(1);
+        const coolNames = screen.getAllByText("Cool New Class Name");
+        expect(coolNames.length).toEqual(1);
+        const newCredits = screen.getAllByText("4");
+        expect(newCredits.length).toEqual(1);
+        // Makes sure that each info edit appears exactly once
     });
 
 });
