@@ -1,8 +1,11 @@
-import { Row, Button} from "react-bootstrap";
+import { Row, Button, Col, Card } from "react-bootstrap";
 import React from "react";
 import { ClassTable } from "./ClassTable";
 import { Semester } from "../interfaces/semester";
 import { useState } from "react";
+import REQUIREDCLASSES  from "../assets/RequiredCourseList.json";
+import { Requirements } from "./Required";
+import { Class } from "../interfaces/class";
 
 export function SemesterTable() : JSX.Element {
     const [currentID, setID] = useState<number>(0);
@@ -14,6 +17,7 @@ export function SemesterTable() : JSX.Element {
         {id:currentID, semesterNum: 1, year: 1, classes: [{courseID: "CISC", name: "Class Name", credits: 3, key: 1},{courseID: "CISC", name: "Class Name", credits: 3, key: 2},{courseID: "CISC", name: "Class Name", credits: 3, key: 3},{courseID: "CISC", name: "Class Name", credits: 3, key: 4},{courseID: "CISC", name: "Class Name", credits: 3, key: 5}]}
         //The list of classes is important because it gets rid of the issue where the first two semesters' classes function as the same entity.
     ];
+    const [editableReqs, setEditableReqs] = useState<Class[]>([...REQUIREDCLASSES]);
 
     function getLocalStorageSemesters(): Semester[] {
         const rawSemesters: string|null = localStorage.getItem(LOCAL_STORAGE_SEMESTERS);
@@ -70,13 +74,20 @@ export function SemesterTable() : JSX.Element {
         <>
             <Row><Button data-testid="add-semester-button" onClick={addSemester} className="btn btn-add m-3" style={{fontFamily: "Courier New"}}>Add Semester</Button></Row>
             <Row>
-                <table>
-                    { allSemesters.map((sem: Semester) => {
-                        return <tr key={sem.id}>
-                            <td><ClassTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} setSemCount={setSemesterCounter} classList={sem.classes}></ClassTable></td>
-                        </tr>;
-                    })}
-                </table>
+                <Col>
+                    <Row className="m-2">
+                        <table>
+                            { allSemesters.map((sem: Semester) => {
+                                return <tr key={sem.id}>
+                                    <td><ClassTable currentSem={sem.semesterNum} currYear={sem.year} currID={sem.id} semList={allSemesters} setSemList={changeSemesters} lastID={currentID} idSet={setID} semPer={semestersPerYear} setSemCount={setSemesterCounter} classList={sem.classes} changingReqs={editableReqs} setReqList={setEditableReqs} allReqs={REQUIREDCLASSES}></ClassTable></td>
+                                </tr>;
+                            })}
+                        </table>
+                    </Row>
+                </Col>
+                <Col className="col-md-2">
+                    <Requirements reqList={editableReqs}></Requirements>
+                </Col>
             </Row>
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
             <Button data-testid="save-to-local-button" onClick={saveToLocal} className="btn btn-save m-3">Save Layout</Button>

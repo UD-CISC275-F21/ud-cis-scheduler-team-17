@@ -5,8 +5,6 @@ import "./override.css";
 import { SemesterTable } from "./components/SemesterViewer";
 import { Container } from "react-bootstrap";
 
-
-
 function App(): JSX.Element {
 
     //TODO: Export/Import (CSV/PDF?) (Do some research)

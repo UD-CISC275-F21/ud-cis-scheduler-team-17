@@ -1,0 +1,218 @@
+[
+    {
+        "courseID": "First Year Seminar",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "ENGL110",
+        "name": "Seminar in Composition",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC108",
+        "name": "Introduction to Computer Science I",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC181",
+        "name": "Introduction to Computer Science II",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC210",
+        "name": "Introduction to Systems Programming",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC220",
+        "name": "Data Structures",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC260",
+        "name": "Machine Org. and Assembly Language",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC275",
+        "name": "Introduction to Software Engineering",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC303",
+        "name": "Automata Theory",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC320",
+        "name": "Introduction to Algorithms",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC355",
+        "name": "Computers Ethics & Society",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC361",
+        "name": "Operating Systems",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "CISC372",
+        "name": "Parallel Computing",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "ENGL312 or ENGL410",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "MATH205 or MATH350",
+        "name": "",
+        "credits": 4,
+        "key": -1
+    },
+    {
+        "courseID": "MATH210",
+        "name": "Discrete Mathematics I",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "MATH241",
+        "name": "Analytic Geometry and Calculus A",
+        "credits": 4,
+        "key": -1
+    },
+    {
+        "courseID": "MATH242",
+        "name": "Analytic Geometry and Calculus B",
+        "credits": 4,
+        "key": -1
+    },
+    {
+        "courseID": "CISC304 or MATH349",
+        "name": "Logic for Programming",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Technical Elective 1",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Technical Elective 2",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Focus Area 1",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Focus Area 2",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Focus Area 3",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Focus Area 4",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Multicultural",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Discovery Learning Experience",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Creative Arts & Humanities",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "History & Cultural Change",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Social & Behavioral Sciences",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Math, Natural Sci & Tech",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Lab Science 1",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Lab Science 2",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Additional Science",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Capstone 1",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    },
+    {
+        "courseID": "Capstone 2",
+        "name": "",
+        "credits": 3,
+        "key": -1
+    }
+]
