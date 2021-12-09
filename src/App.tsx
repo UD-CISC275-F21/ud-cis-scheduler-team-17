@@ -7,8 +7,6 @@ import { Container } from "react-bootstrap";
 
 function App(): JSX.Element {
 
-    //TODO: Export/Import (CSV/PDF?) (Do some research)
-
     return (
         <>
             <div className="text-center" style={{fontFamily: "Courier New"}}>

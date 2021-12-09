@@ -71,7 +71,6 @@ describe("App", () => {
         const newCourses = screen.queryAllByText(/Class Name/);
         expect(newCourses.length).toEqual(1); // 2 Because of the ones in the header
     });
-    //TODO: Test edit buttons
     /*
     it("edits the information in courses when Edit button is pressed, information is passed, and Submit button is pressed", async() => {
         const editButton = screen.getByTestId("edit-button");
