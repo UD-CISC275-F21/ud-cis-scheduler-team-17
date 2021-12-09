@@ -1,4 +1,4 @@
-import { Row, Button, Col, Card } from "react-bootstrap";
+import { Row, Button, Col } from "react-bootstrap";
 import React from "react";
 import { ClassTable } from "./ClassTable";
 import { Semester } from "../interfaces/semester";

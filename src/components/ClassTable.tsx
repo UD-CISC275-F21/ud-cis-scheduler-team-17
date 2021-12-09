@@ -89,6 +89,9 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
 
     function submitSem () {
         const tempList = [...classList];
+        if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===editId)===-1 && editId!=="") {
+            setReqList([...changingReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}]);
+        }
         if (editId!=="") {
             tempList[editRow-1].courseID = editId;
         }
@@ -102,11 +105,6 @@ export function ClassTable({currID, currentSem, currYear, semList, setSemList, l
         if (changingReqs.findIndex((course: Class) => course.courseID===editId)!==-1) {
             const fixedReqs = changingReqs.filter((reqFilter)=>reqFilter.courseID!==editId);
             setReqList(fixedReqs);
-        }
-        if (allReqs.findIndex((course: Class)=>course.courseID===tempList[editRow-1].courseID)!==-1 && changingReqs.findIndex((course: Class)=>course.courseID===editId)===-1 && editId!=="") {
-            setReqList([...changingReqs, {courseID: tempList[editRow-1].courseID, name: "", credits: 3, key:-1}]);
-        } else {
-            alert("no");
         }
         setEditRow(0);
         setEditId("");
