@@ -259,9 +259,9 @@ describe("App", () => {
         });
         const submitButton = screen.getByTestId("submit-button");
         submitButton.click();
-        const requirementList = screen.getAllByText("CISC108", {exact: false})
+        const requirementList = screen.getAllByText("CISC108", {exact: false});
         expect(requirementList.length).toEqual(1);
-        const editedCourses = screen.getAllByText("CISC108")
+        const editedCourses = screen.getAllByText("CISC108");
         const specificCourse = editedCourses[0]; // 1 because of the header
         expect(specificCourse).toContainHTML("<td>CISC108</td>");
         
