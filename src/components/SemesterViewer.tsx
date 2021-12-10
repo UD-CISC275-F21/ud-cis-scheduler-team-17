@@ -96,7 +96,7 @@ export function SemesterTable() : JSX.Element {
                     </Row>
                 </Col>
                 <Col className="col-md-2">
-                    <Requirements reqList={editableReqs}></Requirements>
+                    <Requirements data-testid="requirement-list" reqList={editableReqs}></Requirements>
                 </Col>
             </Row>
             <Button data-testid="clear-all-semesters-button" onClick={deleteAllSems} className="btn btn-delete m-3" style={{fontFamily: "Courier New"}}>Clear All Semesters</Button>
