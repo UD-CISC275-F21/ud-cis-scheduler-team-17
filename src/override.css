@@ -1,0 +1,22 @@
+.btn {
+    background-color: darkslategray;
+    border-color: transparent;
+}
+
+.btn-delete {
+    background-color: rgb(255, 98, 98);
+}
+
+.btn-add {
+    background-color: rgb(61, 189, 78);
+}
+
+.btn-small-delete {
+    background-color: rgb(255, 98, 98);
+    font-size: 11pt;
+}
+
+.card-semester {
+    padding-left: 0;
+    padding-right: 0;
+}
