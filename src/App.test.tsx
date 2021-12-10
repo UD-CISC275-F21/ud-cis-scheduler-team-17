@@ -313,8 +313,4 @@ describe("App", () => {
         expect(inRequirements.length).toEqual(1);
     });
 
-    it("When required class is deleted/edited off/replaced in the semester, it is put back onto the required course list", async() => {
-
-    });
-
 });
