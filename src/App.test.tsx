@@ -250,4 +250,71 @@ describe("App", () => {
         // Makes sure that each info edit appears exactly once
     });
 
+    it("when requirement is added to semester, it is deleted from required course list", async() => {
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup = screen.getAllByTestId("input-group");
+        fireEvent.change(inputGroup[0], {
+            target: {value: "CISC108"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const requirementList = screen.getAllByText("CISC108", {exact: false})
+        expect(requirementList.length).toEqual(1);
+        const editedCourses = screen.getAllByText("CISC108")
+        const specificCourse = editedCourses[0]; // 1 because of the header
+        expect(specificCourse).toContainHTML("<td>CISC108</td>");
+        
+
+    });
+
+    it("Delete semester put appropriate course requirements back on the list", async() => {
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup = screen.getAllByTestId("input-group");
+        fireEvent.change(inputGroup[0], {
+            target: {value: "CISC108"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const deleteSemesterButton = screen.getByTestId("delete-this-semester-button");
+        deleteSemesterButton.click();
+        const inRequirements = screen.getAllByText("CISC108");
+        expect(inRequirements.length).toEqual(1);
+    });
+
+    it("Delete all semesters resets the list", async() => {
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup = screen.getAllByTestId("input-group");
+        fireEvent.change(inputGroup[0], {
+            target: {value: "CISC108"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const deleteAllSemesters = screen.getByTestId("clear-all-semesters-button");
+        deleteAllSemesters.click();
+        const inRequirements = screen.getAllByText("CISC108");
+        expect(inRequirements.length).toEqual(1);
+    });
+
+    it("Clear Courses put appropriate course requirements back on the list", async() => {
+        const editCourseButtons = screen.getAllByTestId("edit-course-button");
+        editCourseButtons[0].click();
+        const inputGroup2 = screen.getAllByTestId("input-group");
+        fireEvent.change(inputGroup2[0], {
+            target: {value: "CISC181"},
+        });
+        const submitButton = screen.getByTestId("submit-button");
+        submitButton.click();
+        const clearCoursesButton = screen.getByTestId("clear-courses-button");
+        clearCoursesButton.click();
+        const inRequirements = screen.getAllByText("CISC181");
+        expect(inRequirements.length).toEqual(1);
+    });
+
+    it("When required class is deleted/edited off/replaced in the semester, it is put back onto the required course list", async() => {
+
+    });
+
 });
